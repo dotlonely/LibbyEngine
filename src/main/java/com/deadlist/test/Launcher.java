@@ -1,18 +1,26 @@
 package com.deadlist.test;
 
+import com.deadlist.core.EngineManager;
 import com.deadlist.core.WindowManager;
+import com.deadlist.core.utils.Consts;
 import org.lwjgl.Version;
 public class Launcher {
 
+    private static WindowManager window;
+    private static EngineManager engine;
+
     public static void main(String[] args) {
-        System.out.println(Version.getVersion());
-        WindowManager window = new WindowManager("Fruiting Bodies", 1024, 768, false);
-        window.init();
+        window = new WindowManager(Consts.TITLE, 1024, 768, false);
+        engine = new EngineManager();
 
-        while(!window.windowShouldClose()){
-            window.update();
-        }
+       try {
+            engine.start();
+       } catch (Exception e){
+           e.printStackTrace();
+       }
+    }
 
-        window.cleanup();
+    public static WindowManager getWindow() {
+        return window;
     }
 }
