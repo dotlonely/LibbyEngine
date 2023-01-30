@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Can render models to screen now">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added shader support">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Texture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ObjectLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ObjectLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="GLSL Shader" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -106,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675037672447</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added shader support">
+      <created>1675040461432</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675040461432</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +132,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Window Manager is complete and functional" />
     <MESSAGE value="Can render models to screen now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Can render models to screen now" />
+    <MESSAGE value="Added shader support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added shader support" />
   </component>
 </project>
