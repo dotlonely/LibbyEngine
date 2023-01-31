@@ -1,7 +1,6 @@
 package com.deadlist.core;
 
 import com.deadlist.core.entity.Entity;
-import com.deadlist.core.entity.Model;
 import com.deadlist.core.utils.Transformation;
 import com.deadlist.core.utils.Utils;
 import com.deadlist.test.Launcher;

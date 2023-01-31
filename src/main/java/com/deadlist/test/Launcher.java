@@ -3,7 +3,6 @@ package com.deadlist.test;
 import com.deadlist.core.EngineManager;
 import com.deadlist.core.WindowManager;
 import com.deadlist.core.utils.Consts;
-import org.lwjgl.Version;
 public class Launcher {
 
     private static WindowManager window;

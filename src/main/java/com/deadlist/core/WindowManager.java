@@ -1,5 +1,6 @@
 package com.deadlist.core;
 
+import com.deadlist.core.utils.Consts;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -9,10 +10,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 public class WindowManager {
-
-    public static final float FOV = (float) Math.toRadians(90);
-    public static final float Z_NEAR = 0.01f;
-    public static final float Z_FAR = 1000f;
 
     private final String title;
 
@@ -162,7 +159,7 @@ public class WindowManager {
         this.height = height;
     }
 
-    public long getWindow() {
+    public long getWindowHandle() {
         return window;
     }
 
@@ -176,11 +173,11 @@ public class WindowManager {
 
     public Matrix4f updateProjectionMatrix(){
         float aspectRatio = (float) width / height;
-        return projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+        return projectionMatrix.setPerspective(Consts.FOV, aspectRatio, Consts.Z_NEAR, Consts.Z_FAR);
     }
 
     public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width, int height){
         float aspectRatio = (float) width / height;
-        return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+        return matrix.setPerspective(Consts.FOV, aspectRatio, Consts.Z_NEAR, Consts.Z_FAR);
     }
 }
