@@ -60,6 +60,18 @@ public class ShaderManager {
         createUniform(uniformName + ".cutoff");
     }
 
+    public void createPointLightListUniform(String uniformName, int size) throws Exception{
+        for (int i = 0; i < size; i++) {
+            createPointLightUniform(uniformName + "[" + i + "]");
+        }
+    }
+
+    public void createSpotLightListUniform(String uniformName, int size) throws Exception{
+        for (int i = 0; i < size; i++) {
+            createSpotLightUniform(uniformName + "[" + i + "]");
+        }
+    }
+
     public void createMaterialUniform(String uniformName) throws Exception{
         createUniform(uniformName + ".ambient");
         createUniform(uniformName + ".diffuse");
@@ -102,6 +114,29 @@ public class ShaderManager {
         setUniform(uniformName + ".conedir", spotLight.getConeDirection());
         setUniform(uniformName + ".cutoff", spotLight.getCutOff());
     }
+
+    public void setUniform(String uniformName, PointLight[] pointLights){
+        int numLights = pointLights != null ? pointLights.length : 0;
+        for(int i = 0; i < numLights; i++){
+            setUniform(uniformName, pointLights[i], i);
+        }
+    }
+
+    public void setUniform(String uniformName, PointLight pointLight, int pos){
+        setUniform(uniformName + "[" + pos + "]", pointLight);
+    }
+
+    public void setUniform(String uniformName, SpotLight[] spotLights){
+        int numLights = spotLights != null ? spotLights.length : 0;
+        for(int i = 0; i < numLights; i++){
+            setUniform(uniformName, spotLights[i], i);
+        }
+    }
+
+    public void setUniform(String uniformName, SpotLight spotLight, int pos){
+        setUniform(uniformName + "[" + pos + "]", spotLight);
+    }
+
 
     public void setUniform(String uniformName, Material material){
         setUniform(uniformName + ".ambient", material.getAmbientColor());

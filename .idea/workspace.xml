@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added cel shading lol">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/lighting/SpotLight.java" afterDir="false" />
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added spotlight">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" afterDir="false" />
@@ -174,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675408424495</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added spotlight">
+      <created>1675454466244</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675454466244</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -203,6 +209,7 @@
     <MESSAGE value="Added directional light support and extra models" />
     <MESSAGE value="Added point light" />
     <MESSAGE value="Added cel shading lol" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added cel shading lol" />
+    <MESSAGE value="Added spotlight" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added spotlight" />
   </component>
 </project>
