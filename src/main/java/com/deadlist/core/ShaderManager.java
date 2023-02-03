@@ -1,6 +1,7 @@
 package com.deadlist.core;
 
 import com.deadlist.core.entity.Material;
+import com.deadlist.core.lighting.DirectionalLight;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -36,6 +37,12 @@ public class ShaderManager {
         uniforms.put(uniformName, uniformLocation);
     }
 
+    public void createDirectionalLightUniform(String uniformName) throws Exception{
+        createUniform(uniformName + ".color");
+        createUniform(uniformName + ".direction");
+        createUniform(uniformName + ".intensity");
+    }
+
     public void createMaterialUniform(String uniformName) throws Exception{
         createUniform(uniformName + ".ambient");
         createUniform(uniformName + ".diffuse");
@@ -58,6 +65,11 @@ public class ShaderManager {
         GL20.glUniform1f(uniforms.get(uniformName), value);
     }
 
+    public void setUniform(String uniformName, DirectionalLight directionalLight){
+        setUniform(uniformName + ".color", directionalLight.getColor());
+        setUniform(uniformName + ".direction", directionalLight.getDirection());
+        setUniform(uniformName + ".intensity", directionalLight.getIntensity());
+    }
     public void setUniform(String uniformName, Material material){
         setUniform(uniformName + ".ambient", material.getAmbientColor());
         setUniform(uniformName + ".diffuse", material.getDiffuseColor());
