@@ -37,6 +37,8 @@ uniform float specularPower;
 uniform DirectionalLight directionalLight;
 uniform PointLight pointLight;
 
+const float levels = 3;
+
 vec4 ambientC;
 vec4 diffuseC;
 vec4 specularC;
@@ -60,6 +62,12 @@ vec4 calcLightColor(vec3 light_color, float light_intensity, vec3 position, vec3
 
     //diffuse light
     float diffuseFactor = max(dot(normal, to_light_direction), 0.0);
+
+    //These two lines cel shade
+    float level = floor(diffuseFactor * levels);
+    diffuseFactor = level / levels;
+
+
     diffuseColor = diffuseC * vec4(light_color, 1.0) * light_intensity * diffuseFactor;
 
     //specular color
@@ -68,6 +76,12 @@ vec4 calcLightColor(vec3 light_color, float light_intensity, vec3 position, vec3
     vec3 reflectedLight = normalize(reflect(from_light_direction, normal));
     float specularFactor = max(dot(camera_dir, reflectedLight), 0.0);
     specularFactor = pow(specularFactor, specularPower);
+
+    //These two lines cel shade
+    level = floor(specularFactor * levels);
+    specularFactor = level / levels;
+
+
     specColor = specularC * light_intensity * specularFactor * material.reflectance * vec4(light_color, 1.0);
 
     return (diffuseColor + specColor);

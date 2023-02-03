@@ -10,7 +10,6 @@ import org.joml.Vector4f;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 

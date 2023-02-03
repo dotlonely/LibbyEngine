@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added directional light support and extra models">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/lighting/PointLight.java" afterDir="false" />
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added point light">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/RenderManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ShaderManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
@@ -160,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675403407241</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added point light">
+      <created>1675404269183</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675404269183</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -187,6 +192,7 @@
     <MESSAGE value="Added object loader and ambient light support" />
     <MESSAGE value="Added cube obj file" />
     <MESSAGE value="Added directional light support and extra models" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added directional light support and extra models" />
+    <MESSAGE value="Added point light" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added point light" />
   </component>
 </project>
