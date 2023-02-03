@@ -2,12 +2,15 @@ package com.deadlist.core;
 
 import com.deadlist.core.entity.Material;
 import com.deadlist.core.lighting.DirectionalLight;
+import com.deadlist.core.lighting.PointLight;
+import com.sun.javafx.scene.traversal.Direction;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +46,15 @@ public class ShaderManager {
         createUniform(uniformName + ".intensity");
     }
 
+    public void createPointLightUniform(String uniformName) throws Exception{
+        createUniform(uniformName + ".color");
+        createUniform(uniformName + ".position");
+        createUniform(uniformName + ".intensity");
+        createUniform(uniformName + ".constant");
+        createUniform(uniformName + ".linear");
+        createUniform(uniformName + ".exponent");
+    }
+
     public void createMaterialUniform(String uniformName) throws Exception{
         createUniform(uniformName + ".ambient");
         createUniform(uniformName + ".diffuse");
@@ -69,6 +81,15 @@ public class ShaderManager {
         setUniform(uniformName + ".color", directionalLight.getColor());
         setUniform(uniformName + ".direction", directionalLight.getDirection());
         setUniform(uniformName + ".intensity", directionalLight.getIntensity());
+    }
+
+    public void setUniform(String uniformName, PointLight pointLight){
+        setUniform(uniformName + ".color", pointLight.getColor());
+        setUniform(uniformName + ".position", pointLight.getPosition());
+        setUniform(uniformName + ".intensity", pointLight.getIntensity());
+        setUniform(uniformName + ".constant", pointLight.getConstant());
+        setUniform(uniformName + ".linear", pointLight.getLinear());
+        setUniform(uniformName + ".exponent", pointLight.getExponent());
     }
     public void setUniform(String uniformName, Material material){
         setUniform(uniformName + ".ambient", material.getAmbientColor());
