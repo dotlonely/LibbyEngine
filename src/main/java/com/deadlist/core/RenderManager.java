@@ -42,7 +42,6 @@ public class RenderManager {
         shader.setUniform("material", entity.getModel().getMaterial());
         shader.setUniform("ambientLight", Consts.AMBIENT_LIGHT);
 
-
         GL30.glBindVertexArray(entity.getModel().getId());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);

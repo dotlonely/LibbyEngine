@@ -43,6 +43,14 @@ public class Entity {
         this.pos.z = z;
     }
 
+    public void incScale(float scale){
+        this.scale += scale;
+    }
+
+    public void setScale(float scale){
+        this.scale = scale;
+    }
+
     public Model getModel() {
         return model;
     }
