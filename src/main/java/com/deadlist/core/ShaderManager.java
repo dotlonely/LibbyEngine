@@ -3,7 +3,7 @@ package com.deadlist.core;
 import com.deadlist.core.entity.Material;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
-import com.sun.javafx.scene.traversal.Direction;
+import com.deadlist.core.lighting.SpotLight;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -54,6 +54,12 @@ public class ShaderManager {
         createUniform(uniformName + ".exponent");
     }
 
+    public void createSpotLightUniform(String uniformName) throws Exception{
+        createPointLightUniform(uniformName + ".pl");
+        createUniform(uniformName + ".conedir");
+        createUniform(uniformName + ".cutoff");
+    }
+
     public void createMaterialUniform(String uniformName) throws Exception{
         createUniform(uniformName + ".ambient");
         createUniform(uniformName + ".diffuse");
@@ -90,6 +96,13 @@ public class ShaderManager {
         setUniform(uniformName + ".linear", pointLight.getLinear());
         setUniform(uniformName + ".exponent", pointLight.getExponent());
     }
+
+    public void setUniform(String uniformName, SpotLight spotLight){
+        setUniform(uniformName + ".pl", spotLight.getPointLight());
+        setUniform(uniformName + ".conedir", spotLight.getConeDirection());
+        setUniform(uniformName + ".cutoff", spotLight.getCutOff());
+    }
+
     public void setUniform(String uniformName, Material material){
         setUniform(uniformName + ".ambient", material.getAmbientColor());
         setUniform(uniformName + ".diffuse", material.getDiffuseColor());
