@@ -4,6 +4,7 @@ import com.deadlist.core.Camera;
 import com.deadlist.core.ShaderManager;
 import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
+import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
@@ -51,16 +52,33 @@ public class TerrainRenderer implements IRenderer {
         shader.createSpotLightListUniform("spotLights", Consts.MAX_SPOT_LIGHTS);
     }
 
+//    @Override
+//    public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight) {
+//        shader.bind();
+//        shader.setUniforms("projectionMatrix", Launcher.getWindow().updateProjectionMatrix());
+//
+//        RenderManager.renderLights(shader, pointLights, spotLights, directionalLight);
+//        for(Terrain terrain : terrains){
+//            bind(terrain.getModel());
+//                prepare(terrain, camera);
+//                GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+//            unbind();
+//        }
+//
+//        terrains.clear();
+//        shader.unbind();
+//    }
+
     @Override
-    public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight) {
+    public void renderer(Camera camera, SceneManager sceneManager) {
         shader.bind();
         shader.setUniforms("projectionMatrix", Launcher.getWindow().updateProjectionMatrix());
 
-        RenderManager.renderLights(shader, pointLights, spotLights, directionalLight);
+        RenderManager.renderLights(shader, sceneManager.getPointLights(), sceneManager.getSpotLights(), sceneManager.getDirectionalLight());
         for(Terrain terrain : terrains){
             bind(terrain.getModel());
-                prepare(terrain, camera);
-                GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+            prepare(terrain, camera);
+            GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
             unbind();
         }
 

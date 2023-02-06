@@ -5,6 +5,7 @@ import com.deadlist.core.ShaderManager;
 import com.deadlist.core.WindowManager;
 import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
+import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
@@ -72,11 +73,18 @@ public class RenderManager {
         shader.setUniform("directionalLight", directionalLight);
     }
 
-    public void render(Camera camera, DirectionalLight directionalLight, PointLight[] pointLights, SpotLight[] spotLights){
+//    public void render(Camera camera, DirectionalLight directionalLight, PointLight[] pointLights, SpotLight[] spotLights){
+//        clear();
+//
+//        entityRenderer.renderer(camera, pointLights, spotLights, directionalLight);
+//        terrainRenderer.renderer(camera, pointLights, spotLights, directionalLight);
+//    }
+
+    public void render(Camera camera, SceneManager sceneManager){
         clear();
 
-        entityRenderer.renderer(camera, pointLights, spotLights, directionalLight);
-        terrainRenderer.renderer(camera, pointLights, spotLights, directionalLight);
+        entityRenderer.renderer(camera, sceneManager);
+        terrainRenderer.renderer(camera, sceneManager);
     }
 
     public void processEntities(Entity entity){

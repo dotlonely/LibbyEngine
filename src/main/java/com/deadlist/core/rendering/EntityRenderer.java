@@ -4,6 +4,7 @@ import com.deadlist.core.Camera;
 import com.deadlist.core.ShaderManager;
 import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
+import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -49,12 +50,32 @@ public class EntityRenderer implements IRenderer {
         shader.createSpotLightListUniform("spotLights", Consts.MAX_SPOT_LIGHTS);
     }
 
+//    @Override
+//    public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight) {
+//        shader.bind();
+//        shader.setUniforms("projectionMatrix", Launcher.getWindow().updateProjectionMatrix());
+//
+//        RenderManager.renderLights(shader, pointLights, spotLights, directionalLight);
+//        for(Model model : entities.keySet()){
+//            bind(model);
+//            List<Entity> entityList = entities.get(model);
+//            for(Entity entity : entityList){
+//                prepare(entity, camera);
+//                GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+//            }
+//            unbind();
+//        }
+//
+//        entities.clear();
+//        shader.unbind();
+//    }
+
     @Override
-    public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight) {
+    public void renderer(Camera camera, SceneManager sceneManager) {
         shader.bind();
         shader.setUniforms("projectionMatrix", Launcher.getWindow().updateProjectionMatrix());
 
-        RenderManager.renderLights(shader, pointLights, spotLights, directionalLight);
+        RenderManager.renderLights(shader, sceneManager.getPointLights(), sceneManager.getSpotLights(), sceneManager.getDirectionalLight());
         for(Model model : entities.keySet()){
             bind(model);
             List<Entity> entityList = entities.get(model);

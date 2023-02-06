@@ -13,6 +13,7 @@ public class Consts {
 
     public static final float MOUSE_SENS = 0.2f;
     public static final float CAMERA_STEP = 0.05f;
+    public static final float CAMERA_SPRINT_STEP = .5f;
 
     public static final int MAX_SPOT_LIGHTS = 5;
     public static final int MAX_POINT_LIGHTS = 5;

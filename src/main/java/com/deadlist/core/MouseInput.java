@@ -36,6 +36,7 @@ public class MouseInput {
             leftButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_1 && action == GLFW.GLFW_PRESS;
             rightButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_2 && action == GLFW.GLFW_PRESS;
         });
+
     }
 
     public void input(){
@@ -68,4 +69,5 @@ public class MouseInput {
     public boolean isRightButtonPress() {
         return rightButtonPress;
     }
+
 }
