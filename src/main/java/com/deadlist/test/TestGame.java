@@ -53,16 +53,25 @@ public class TestGame implements ILogic {
         Model model = loader.loadObjModel("/models/stall.obj");
         model.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
+        Model model1 = loader.loadObjModel("/models/bunny.obj");
+        model1.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")));
+
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 100 - 50;
             float y = rnd.nextFloat() * 100 - 50;
             float z =rnd.nextFloat() * -200;
 
-            entities.add(new Entity(model, new Vector3f(x, y, z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 1));
+            if(rnd.nextInt() * 100 > 50){
+                entities.add(new Entity(model, new Vector3f(x, y, z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 1));
+            }
+            else{
+                entities.add(new Entity(model1, new Vector3f(x,y,z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 10));
+            }
+
 
         }
 
-        entities.add(new Entity(model, new Vector3f(0, 0, -2f), new Vector3f(0, 0,0), 1));
+        //entities.add(new Entity(model, new Vector3f(0, 0, -2f), new Vector3f(0, 0,0), 1));
 
         //entity = new Entity(model, new Vector3f(-5, 0, -5), new Vector3f(0, 0, 0), 10);
 
@@ -138,9 +147,10 @@ public class TestGame implements ILogic {
             camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
         }
 
-        //entity.incRotation(0.0f, 0.05f, 0.0f);
-        //entity.setRotation(0.0f, 180f, 0.0f);
 
+        for(Entity entity : entities){
+            entity.incRotation(.05f, 0.025f, 0f);
+        }
 
         lightAngle += 0.05f;
         if(lightAngle > 90){

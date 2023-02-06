@@ -25,58 +25,32 @@ import java.util.Map;
 public class RenderManager {
 
     private final WindowManager window;
-    private ShaderManager shader;
-
-    private Map<Model, List<Entity>> entities = new HashMap<>();
+    private EntityRenderer entityRenderer;
 
     public RenderManager(){
         window = Launcher.getWindow();
     }
 
     public void init() throws Exception{
-        shader = new ShaderManager();
-        shader.createVertexShader(Utils.loadResource("/shaders/vertex.glsl"));
-        shader.createFragmentShader(Utils.loadResource("/shaders/fragment.glsl"));
-        shader.link();
-        shader.createUniform("textureSampler");
-        shader.createUniform("transformationMatrix");
-        shader.createUniform("projectionMatrix");
-        shader.createUniform("viewMatrix");
-        shader.createUniform("ambientLight");
-        shader.createUniform("specularPower");
-        shader.createDirectionalLightUniform("directionalLight");
-        shader.createMaterialUniform("material");
-        shader.createPointLightListUniform("pointLights", 5);
-        shader.createSpotLightListUniform("spotLights", 5);
+        entityRenderer = new EntityRenderer();
+
+        entityRenderer.init();
+
     }
 
     public void bind(Model model){
-
-        GL30.glBindVertexArray(model.getId());
-        GL20.glEnableVertexAttribArray(0);
-        GL20.glEnableVertexAttribArray(1);
-        GL20.glEnableVertexAttribArray(2);
-        shader.setUniform("material", model.getMaterial());
-
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getId());
-
+        entityRenderer.bind(model);
     }
 
     public void unbind(){
-        GL20.glDisableVertexAttribArray(0);
-        GL20.glDisableVertexAttribArray(1);
-        GL20.glDisableVertexAttribArray(2);
-        GL30.glBindVertexArray(0);
+        entityRenderer.unbind();
     }
 
     public void prepare(Entity entity, Camera camera){
-        shader.setUniform("textureSampler", 0);
-        shader.setUniforms("transformationMatrix", Transformation.createTransformationMatrix(entity));
-        shader.setUniforms("viewMatrix", Transformation.getViewMatrix(camera));
+        entityRenderer.prepare(entity, camera);
     }
 
-    public void renderLights(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight){
+    public static void renderLights(ShaderManager shader, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight){
         shader.setUniform("ambientLight", Consts.AMBIENT_LIGHT);
         shader.setUniform("specularPower", Consts.SPECULAR_POWER);
 
@@ -96,33 +70,18 @@ public class RenderManager {
     public void render(Camera camera, DirectionalLight directionalLight, PointLight[] pointLights, SpotLight[] spotLights){
         clear();
 
-        shader.bind();
-        shader.setUniforms("projectionMatrix", window.updateProjectionMatrix());
-
-        renderLights(camera, pointLights, spotLights, directionalLight);
-        for(Model model : entities.keySet()){
-            bind(model);
-            List<Entity> entityList = entities.get(model);
-            for(Entity entity : entityList){
-                prepare(entity, camera);
-                GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-            }
-            unbind();
-        }
-
-        entities.clear();
-        shader.unbind();
+        entityRenderer.renderer(camera, pointLights, spotLights, directionalLight);
     }
 
     public void processEntities(Entity entity){
-        List<Entity> entityList = entities.get(entity.getModel());
+        List<Entity> entityList = entityRenderer.getEntities().get(entity.getModel());
         if(entityList != null){
             entityList.add(entity);
         }
         else {
             List<Entity> newEntityList = new ArrayList<>();
             newEntityList.add(entity);
-            entities.put(entity.getModel(), newEntityList);
+            entityRenderer.getEntities().put(entity.getModel(), newEntityList);
         }
     }
 
@@ -131,7 +90,7 @@ public class RenderManager {
     }
 
     public void cleanup(){
-        shader.cleanup();
+        entityRenderer.cleanup();
     }
 
 
