@@ -41,57 +41,52 @@ public class TestGame implements ILogic {
         renderer.init();
 
 
-        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/terrain.png")), 0.1f));
-        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/terrain.png")), 0.1f));
+        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/cat.png")), 0.1f));
+        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/cat.png")), 0.1f));
         sceneManager.addTerrain(terrain);
         sceneManager.addTerrain(terrain2);
 
         Random rnd = new Random();
 
-        Model model = loader.loadObjModel("/models/stall.obj");
+        Model model = loader.loadObjModel("/models/cube.obj");
         model.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
         Model model1 = loader.loadObjModel("/models/bunny.obj");
-        model1.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")));
+        model1.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 100 - 50;
-            float y = rnd.nextFloat() * 100 - 50;
+            float y = rnd.nextFloat() * 100;
             float z =rnd.nextFloat() * -200;
 
-            if(rnd.nextInt() * 100 > 50){
-                sceneManager.addEntity(new Entity(model, new Vector3f(x, 2, z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 1));
-            }
-            else{
-                sceneManager.addEntity(new Entity(model1, new Vector3f(x,2,z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 10));
-            }
-
+            sceneManager.addEntity(new Entity(model, new Vector3f(x, y, z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 2));
 
         }
+
+        //sceneManager.addEntity((new Entity(model, new Vector3f(10, 2, -100), new Vector3f(0f, 0f, 0f), 1)));
 
         //entities.add(new Entity(model, new Vector3f(0, 0, -2f), new Vector3f(0, 0,0), 1));
 
         //entity = new Entity(model, new Vector3f(-5, 0, -5), new Vector3f(0, 0, 0), 10);
 
         float lightIntensity = 1.0f;
+
         //point light
         Vector3f lightPosition = new Vector3f(-0.5f,-0.5f,-3.2f);
         Vector3f lightColor = new Vector3f(1,1,1);
         PointLight pointLight = new PointLight(lightColor, lightPosition, lightIntensity);
 
         //spotlight
-        lightIntensity = 5f;
-        Vector3f coneDir = new Vector3f(50,-50,1);
+        Vector3f coneDir = new Vector3f(50,50,1);
         float cutoff = (float) Math.cos(Math.toRadians(140));
         SpotLight spotLight = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), lightIntensity, 0,0,1), coneDir, cutoff);
-        lightColor = new Vector3f(200f, 0f, 0f);
+        lightColor = new Vector3f(.7f, .5f, .1f);
         SpotLight spotLight1 = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), lightIntensity, 0,0,1), coneDir, cutoff);
         spotLight1.getPointLight().setPosition(new Vector3f(0.5f, 0.5f, -3.6f));
 
 
         //directional light
-        lightPosition = new Vector3f(-1,-10,0);
-        lightColor = new Vector3f(1,1,1);
+        lightPosition = new Vector3f(10,10,-10);
         sceneManager.setDirectionalLight(new DirectionalLight(lightColor,lightPosition, lightIntensity));
 
         sceneManager.setPointLights(new PointLight[]{pointLight});
@@ -134,10 +129,19 @@ public class TestGame implements ILogic {
 
         float lightPos = sceneManager.getSpotLights()[0].getPointLight().getPosition().z;
         if(window.isKeyPressed(GLFW.GLFW_KEY_N)){
-            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos + 0.1f;
+            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos + 1f;
         }
         if(window.isKeyPressed(GLFW.GLFW_KEY_M)){
-            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos - 0.1f;
+            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos - 1f;
+        }
+
+        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x + 1,
+                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x - 1,
+                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
         }
     }
 
@@ -145,7 +149,6 @@ public class TestGame implements ILogic {
     public void update(MouseInput mouseInput) {
 
         float cameraStep = Consts.CAMERA_STEP;
-
 
         if(mouseInput.isRightButtonPress()){
             Vector2f rotVec = mouseInput.getDisplVec();
@@ -161,31 +164,6 @@ public class TestGame implements ILogic {
         for(Entity entity : sceneManager.getEntities()){
             entity.incRotation(.05f, 0.025f, 0f);
         }
-
-        sceneManager.incLightAngle(0.05f);
-        if(sceneManager.getLightAngle() > 90){
-            sceneManager.getDirectionalLight().setIntensity(0);
-            if(sceneManager.getLightAngle() >= 360){
-                sceneManager.setLightAngle(-90);
-            }
-        }
-        else if(sceneManager.getLightAngle() <= -80 || sceneManager.getLightAngle() >= 80){
-            float factor = 1 - (Math.abs(sceneManager.getLightAngle()) - 80) / 10.0f;
-            sceneManager.getDirectionalLight().setIntensity(factor);
-            sceneManager.getDirectionalLight().getColor().y = Math.max(factor, 0.9f);
-            sceneManager.getDirectionalLight().getColor().z = Math.max(factor, 0.5f);
-        }
-        else{
-            sceneManager.getDirectionalLight().setIntensity(1);
-            sceneManager.getDirectionalLight().getColor().x = 1;
-            sceneManager.getDirectionalLight().getColor().y = 1;
-            sceneManager.getDirectionalLight().getColor().z = 1;
-
-        }
-
-        double angRad = Math.toRadians(sceneManager.getLightAngle());
-        sceneManager.getDirectionalLight().getDirection().x = (float) Math.sin(angRad);
-        sceneManager.getDirectionalLight().getDirection().y = (float) Math.cos(angRad);
 
         for(Entity entity : sceneManager.getEntities()){
             renderer.processEntities(entity);

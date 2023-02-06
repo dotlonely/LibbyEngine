@@ -52,23 +52,6 @@ public class TerrainRenderer implements IRenderer {
         shader.createSpotLightListUniform("spotLights", Consts.MAX_SPOT_LIGHTS);
     }
 
-//    @Override
-//    public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight) {
-//        shader.bind();
-//        shader.setUniforms("projectionMatrix", Launcher.getWindow().updateProjectionMatrix());
-//
-//        RenderManager.renderLights(shader, pointLights, spotLights, directionalLight);
-//        for(Terrain terrain : terrains){
-//            bind(terrain.getModel());
-//                prepare(terrain, camera);
-//                GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-//            unbind();
-//        }
-//
-//        terrains.clear();
-//        shader.unbind();
-//    }
-
     @Override
     public void renderer(Camera camera, SceneManager sceneManager) {
         shader.bind();

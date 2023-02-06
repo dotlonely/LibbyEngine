@@ -11,18 +11,11 @@ import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.utils.Consts;
-import com.deadlist.core.utils.Transformation;
-import com.deadlist.core.utils.Utils;
 import com.deadlist.test.Launcher;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RenderManager {
 
@@ -72,13 +65,6 @@ public class RenderManager {
 
         shader.setUniform("directionalLight", directionalLight);
     }
-
-//    public void render(Camera camera, DirectionalLight directionalLight, PointLight[] pointLights, SpotLight[] spotLights){
-//        clear();
-//
-//        entityRenderer.renderer(camera, pointLights, spotLights, directionalLight);
-//        terrainRenderer.renderer(camera, pointLights, spotLights, directionalLight);
-//    }
 
     public void render(Camera camera, SceneManager sceneManager){
         clear();

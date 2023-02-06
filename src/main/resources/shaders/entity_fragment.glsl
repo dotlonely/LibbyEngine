@@ -151,6 +151,8 @@ void main(){
     }
 
     fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
+
+
 }
 
 
