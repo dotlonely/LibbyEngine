@@ -5,6 +5,7 @@ import com.deadlist.core.ShaderManager;
 import com.deadlist.core.WindowManager;
 import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
+import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -26,6 +27,7 @@ public class RenderManager {
 
     private final WindowManager window;
     private EntityRenderer entityRenderer;
+    private TerrainRenderer terrainRenderer;
 
     public RenderManager(){
         window = Launcher.getWindow();
@@ -33,8 +35,10 @@ public class RenderManager {
 
     public void init() throws Exception{
         entityRenderer = new EntityRenderer();
+        terrainRenderer = new TerrainRenderer();
 
         entityRenderer.init();
+        terrainRenderer.init();
 
     }
 
@@ -49,6 +53,7 @@ public class RenderManager {
     public void prepare(Entity entity, Camera camera){
         entityRenderer.prepare(entity, camera);
     }
+
 
     public static void renderLights(ShaderManager shader, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight){
         shader.setUniform("ambientLight", Consts.AMBIENT_LIGHT);
@@ -71,6 +76,7 @@ public class RenderManager {
         clear();
 
         entityRenderer.renderer(camera, pointLights, spotLights, directionalLight);
+        terrainRenderer.renderer(camera, pointLights, spotLights, directionalLight);
     }
 
     public void processEntities(Entity entity){
@@ -85,12 +91,17 @@ public class RenderManager {
         }
     }
 
+    public void processTerrain(Terrain terrain){
+        terrainRenderer.getTerrains().add(terrain);
+    }
+
     public void clear(){
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
     public void cleanup(){
         entityRenderer.cleanup();
+        terrainRenderer.cleanup();
     }
 
 

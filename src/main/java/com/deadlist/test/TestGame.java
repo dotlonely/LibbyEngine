@@ -2,8 +2,10 @@ package com.deadlist.test;
 
 import com.deadlist.core.*;
 import com.deadlist.core.entity.Entity;
+import com.deadlist.core.entity.Material;
 import com.deadlist.core.entity.Model;
 import com.deadlist.core.entity.Texture;
+import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -25,6 +27,7 @@ public class TestGame implements ILogic {
     private final WindowManager window;
 
     private List<Entity> entities;
+    private List<Terrain> terrains;
     private Camera camera;
 
     Vector3f cameraInc;
@@ -46,6 +49,13 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderer.init();
+
+
+        terrains = new ArrayList<>();
+        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/terrain.png")), 0.1f));
+        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/terrain.png")), 0.1f));
+        terrains.add(terrain);
+        terrains.add(terrain2);
 
         entities = new ArrayList<>();
         Random rnd = new Random();
@@ -179,7 +189,10 @@ public class TestGame implements ILogic {
 
         for(Entity entity : entities){
             renderer.processEntities(entity);
+        }
 
+        for(Terrain terrain : terrains){
+            renderer.processTerrain(terrain);
         }
     }
 

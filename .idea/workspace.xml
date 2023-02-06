@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added support for multiple entities, starting on renderer redesign">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Implemented entity renderer">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/Terrain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Transformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Transformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/entity_fragment.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/entity_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/entity_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/entity_vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,13 +75,21 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "jdk.selected.JAVA_MODULE": "temurin-18",
-    "last_opened_file_path": "C:/Users/Noah Eddleman/IdeaProjects/MyArrayList",
+    "last_opened_file_path": "C:/Users/noahe/IdeaProjects/LibbyEngine/src/main/resources/shaders",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\noahe\IdeaProjects\LibbyEngine\src\main\resources\shaders" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.deadlist.core.rendering" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -189,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675651645753</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Implemented entity renderer">
+      <created>1675658163419</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1675658163419</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -220,6 +242,7 @@
     <MESSAGE value="Added cel shading lol" />
     <MESSAGE value="Added spotlight" />
     <MESSAGE value="Added support for multiple entities, starting on renderer redesign" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support for multiple entities, starting on renderer redesign" />
+    <MESSAGE value="Implemented entity renderer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented entity renderer" />
   </component>
 </project>
