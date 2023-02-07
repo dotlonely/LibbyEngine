@@ -164,6 +164,13 @@ public class TestGame implements ILogic {
             camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
         }
 
+        if(window.isKeyPressed(GLFW.GLFW_KEY_Y)){
+            RenderManager.enableWireframe();
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_T)){
+            RenderManager.disableWireframe();
+        }
+
 //        if(mouseInput.getIsInWindow()){
 //            Vector2f rotVec = mouseInput.getDisplVec();
 //            camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);

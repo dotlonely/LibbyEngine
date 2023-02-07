@@ -13,6 +13,7 @@ import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.test.Launcher;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,14 @@ public class RenderManager {
         entityRenderer.init();
         terrainRenderer.init();
 
+    }
+
+    public static void enableWireframe(){
+        GL13.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+    }
+
+    public static void disableWireframe(){
+        GL13.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
     }
 
     public static void enableCulling(){

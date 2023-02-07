@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added transparency support">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added added fog support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/entity_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/entity_fragment.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/entity_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/entity_vertex.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675742240408</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Added added fog support">
+      <created>1675746359082</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1675746359082</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -272,7 +272,8 @@
     <MESSAGE value="Added SceneManager" />
     <MESSAGE value="terrain.png" />
     <MESSAGE value="Added transparency support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added transparency support" />
+    <MESSAGE value="Added added fog support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added added fog support" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
