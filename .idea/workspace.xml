@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added added fog support">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added Wireframe mode (Press Y to enable and T to disable)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/TerrainTexture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/TerrainTexturePack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/Terrain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/textures/blue.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675746359082</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added Wireframe mode (Press Y to enable and T to disable)">
+      <created>1675796387566</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1675796387566</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -273,7 +287,8 @@
     <MESSAGE value="terrain.png" />
     <MESSAGE value="Added transparency support" />
     <MESSAGE value="Added added fog support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added added fog support" />
+    <MESSAGE value="Added Wireframe mode (Press Y to enable and T to disable)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Wireframe mode (Press Y to enable and T to disable)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

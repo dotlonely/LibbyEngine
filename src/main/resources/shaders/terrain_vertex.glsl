@@ -26,7 +26,7 @@ void main() {
 
     fragNormal = normalize(worldPos.xyz);
     fragPos  = worldPos.xyz;
-    fragTextureCoord = textureCoord / 2.5;
+    fragTextureCoord = textureCoord;
 
     float distance = length(positionRelativeToCamera.xyz);
     visibility = exp(-pow((distance * density), gradient));

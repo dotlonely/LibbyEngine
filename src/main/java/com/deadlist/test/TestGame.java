@@ -3,6 +3,8 @@ package com.deadlist.test;
 import com.deadlist.core.*;
 import com.deadlist.core.entity.*;
 import com.deadlist.core.entity.terrain.Terrain;
+import com.deadlist.core.entity.terrain.TerrainTexture;
+import com.deadlist.core.entity.terrain.TerrainTexturePack;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -10,6 +12,7 @@ import com.deadlist.core.rendering.RenderManager;
 import com.deadlist.core.utils.Consts;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -41,8 +44,18 @@ public class TestGame implements ILogic {
         renderer.init();
 
 
-        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/grass.png")), 0.1f));
-        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/grass.png")), 0.1f));
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/grass.png"));
+        TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/grassFlowers.png"));
+        TerrainTexture greenTexture = new TerrainTexture(loader.loadTexture("textures/mossy.png"));
+        TerrainTexture blueTexture = new TerrainTexture(loader.loadTexture("textures/path.png"));
+
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, redTexture, greenTexture, blueTexture);
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("textures/blendMap.png"));
+
+        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
+                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap);
+        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader,
+                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap);
         sceneManager.addTerrain(terrain);
         sceneManager.addTerrain(terrain2);
 
