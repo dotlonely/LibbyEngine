@@ -70,4 +70,8 @@ public class MouseInput {
         return rightButtonPress;
     }
 
+    public boolean getIsInWindow(){
+        return inWindow;
+    }
+
 }

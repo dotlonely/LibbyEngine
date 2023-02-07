@@ -41,62 +41,74 @@ public class TestGame implements ILogic {
         renderer.init();
 
 
-        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/cat.png")), 0.1f));
-        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/cat.png")), 0.1f));
+        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/grass.png")), 0.1f));
+        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader, new Material(new Texture(loader.loadTexture("textures/grass.png")), 0.1f));
         sceneManager.addTerrain(terrain);
         sceneManager.addTerrain(terrain2);
 
         Random rnd = new Random();
 
-        Model model = loader.loadObjModel("/models/cube.obj");
-        model.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
+        Model grass = loader.loadObjModel("/models/grassModel.obj");
+        grass.setTexture(new Texture(loader.loadTexture("textures/grassTexture.png")), 1f);
+        grass.getTexture().setHasTransparency(true);
+        //grass.getTexture().setUseFakeLighting(true);
 
-        Model model1 = loader.loadObjModel("/models/bunny.obj");
-        model1.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
+        Model model1 = loader.loadObjModel("/models/lowPolyTree.obj");
+        model1.setTexture(new Texture(loader.loadTexture("textures/lowPolyTree.png")), 1f);
+
+        Model fern = loader.loadObjModel("/models/fern.obj");
+        fern.setTexture(new Texture(loader.loadTexture("textures/fern.png")), 1f);
+        fern.getTexture().setHasTransparency(true);
+        //fern.getTexture().setUseFakeLighting(true);
 
         for (int i = 0; i < 200; i++) {
-            float x = rnd.nextFloat() * 100 - 50;
-            float y = rnd.nextFloat() * 100;
-            float z =rnd.nextFloat() * -200;
+            float x = rnd.nextFloat() * 200;
+            float y = rnd.nextFloat() * 150;
+            float z =rnd.nextFloat() * -400;
 
-            sceneManager.addEntity(new Entity(model, new Vector3f(x, y, z), new Vector3f(rnd.nextFloat() * 180, rnd.nextFloat() * 180, 0f), 2));
+            if(y < 50){
+                sceneManager.addEntity(new Entity(grass, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), 1f));
+            }
+            else if(y >= 50 && y < 100){
+                sceneManager.addEntity(new Entity(model1, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), .5f));
+            }
+            else{
+                sceneManager.addEntity(new Entity(fern, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), 1f));
+            }
 
         }
 
-        //sceneManager.addEntity((new Entity(model, new Vector3f(10, 2, -100), new Vector3f(0f, 0f, 0f), 1)));
-
-        //entities.add(new Entity(model, new Vector3f(0, 0, -2f), new Vector3f(0, 0,0), 1));
-
-        //entity = new Entity(model, new Vector3f(-5, 0, -5), new Vector3f(0, 0, 0), 10);
 
         float lightIntensity = 1.0f;
 
         //point light
+        float pointLightIntensity = 0f;
         Vector3f lightPosition = new Vector3f(-0.5f,-0.5f,-3.2f);
         Vector3f lightColor = new Vector3f(1,1,1);
-        PointLight pointLight = new PointLight(lightColor, lightPosition, lightIntensity);
+        PointLight pointLight = new PointLight(lightColor, lightPosition, pointLightIntensity);
 
         //spotlight
+        float spotLightIntensity = 0f;
         Vector3f coneDir = new Vector3f(50,50,1);
-        float cutoff = (float) Math.cos(Math.toRadians(140));
-        SpotLight spotLight = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), lightIntensity, 0,0,1), coneDir, cutoff);
+        float cutoff = (float) Math.cos(Math.toRadians(90));
+        SpotLight spotLight = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), spotLightIntensity, 0,0,1), coneDir, cutoff);
         lightColor = new Vector3f(.7f, .5f, .1f);
-        SpotLight spotLight1 = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), lightIntensity, 0,0,1), coneDir, cutoff);
+        SpotLight spotLight1 = new SpotLight(new PointLight(lightColor, new Vector3f(0,0,1f), spotLightIntensity, 0,0,1), coneDir, cutoff);
         spotLight1.getPointLight().setPosition(new Vector3f(0.5f, 0.5f, -3.6f));
 
 
         //directional light
-        lightPosition = new Vector3f(10,10,-10);
-        sceneManager.setDirectionalLight(new DirectionalLight(lightColor,lightPosition, lightIntensity));
+        lightPosition = new Vector3f(10,10,10);
+        sceneManager.setDirectionalLight(new DirectionalLight(lightColor, lightPosition, lightIntensity));
 
         sceneManager.setPointLights(new PointLight[]{pointLight});
         //pointLights = new PointLight[]{pointLight};
-        sceneManager.setSpotLights(new SpotLight[]{spotLight, spotLight1});
+        sceneManager.setSpotLights(new SpotLight[]{spotLight});
         //spotLights = new SpotLight[]{spotLight, spotLight1};
     }
 
     @Override
-    public void input() {
+    public void input(MouseInput mouseInput) {
         cameraInc.set(0,0,0);
         if(window.isKeyPressed(GLFW.GLFW_KEY_W)){
             cameraInc.z = -1;
@@ -121,39 +133,48 @@ public class TestGame implements ILogic {
 
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
-            sceneManager.getPointLight(0).getPosition().x += 0.1f;
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z - 1));
         }
         if(window.isKeyPressed(GLFW.GLFW_KEY_P)){
-            sceneManager.getPointLight(0).getPosition().x -= 0.1f;
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z + 1));
         }
 
-        float lightPos = sceneManager.getSpotLights()[0].getPointLight().getPosition().z;
         if(window.isKeyPressed(GLFW.GLFW_KEY_N)){
-            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos + 1f;
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_M)){
-            sceneManager.getSpotLight(0).getPointLight().getPosition().z = lightPos - 1f;
-        }
-
-        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x + 1,
-                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
             sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x - 1,
                     sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
         }
-    }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_M)){
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x + 1,
+                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
+        }
 
-    @Override
-    public void update(MouseInput mouseInput) {
-
-        float cameraStep = Consts.CAMERA_STEP;
+        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+                    sceneManager.getDirectionalLight().getDirection().y + 1, sceneManager.getDirectionalLight().getDirection().z));
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
+            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+                    sceneManager.getDirectionalLight().getDirection().y - 1, sceneManager.getDirectionalLight().getDirection().z));
+        }
 
         if(mouseInput.isRightButtonPress()){
             Vector2f rotVec = mouseInput.getDisplVec();
             camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
         }
+
+//        if(mouseInput.getIsInWindow()){
+//            Vector2f rotVec = mouseInput.getDisplVec();
+//            camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
+//        }
+
+    }
+
+    @Override
+    public void update() {
+
+        float cameraStep = Consts.CAMERA_STEP;
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT)){
             cameraStep = Consts.CAMERA_SPRINT_STEP;
@@ -161,9 +182,6 @@ public class TestGame implements ILogic {
 
         camera.movePosition(cameraInc.x * cameraStep, cameraInc.y * cameraStep, cameraInc.z * cameraStep);
 
-        for(Entity entity : sceneManager.getEntities()){
-            entity.incRotation(.05f, 0.025f, 0f);
-        }
 
         for(Entity entity : sceneManager.getEntities()){
             renderer.processEntities(entity);

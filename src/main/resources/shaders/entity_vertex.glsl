@@ -12,13 +12,15 @@ uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 
+
 void main() {
     vec4 worldPos = transformationMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * viewMatrix * worldPos;
 
+
     fragNormal = normalize(worldPos.xyz);
     fragPos  = worldPos.xyz;
-    fragTextureCoord = textureCoord / 2;
+    fragTextureCoord = textureCoord;
 
 }
 

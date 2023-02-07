@@ -1,6 +1,7 @@
 package com.deadlist.core;
 
 import com.deadlist.core.entity.Material;
+import com.deadlist.core.entity.Model;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -85,7 +86,6 @@ public class ShaderManager {
             GL20.glUniformMatrix4fv(uniforms.get(uniformName), false, value.get(stack.mallocFloat(16)));
         }
     }
-
 
     public void setUniform(String uniformName, int value){
         GL20.glUniform1i(uniforms.get(uniformName), value);

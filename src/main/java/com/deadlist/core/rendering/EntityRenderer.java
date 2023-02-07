@@ -73,6 +73,9 @@ public class EntityRenderer implements IRenderer {
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
+        if(model.getTexture().isHasTransparency()){
+            RenderManager.disableCulling();
+        }
         shader.setUniform("material", model.getMaterial());
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getId());
@@ -80,6 +83,7 @@ public class EntityRenderer implements IRenderer {
 
     @Override
     public void unbind() {
+        RenderManager.enableCulling();
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);

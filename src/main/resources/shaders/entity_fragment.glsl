@@ -53,6 +53,7 @@ vec4 ambientC;
 vec4 diffuseC;
 vec4 specularC;
 
+
 void setupColors(Material material, vec2 textCoord){
     if(material.hasTexture == 1){
         ambientC = texture(textureSampler, fragTextureCoord);
@@ -137,6 +138,9 @@ void main(){
 
     vec4 diffuseSpecularComp = calcDirectionalLight(directionalLight, fragPos, fragNormal);
 
+    if(ambientC.a < 0.5f){
+        discard;
+    }
 
     for(int i = 0; i < MAX_POINT_LIGHTS; i++){
         if(pointLights[i].intensity > 0){
@@ -151,7 +155,6 @@ void main(){
     }
 
     fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
-
 
 }
 
