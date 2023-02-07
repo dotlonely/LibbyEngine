@@ -41,6 +41,7 @@ public class EntityRenderer implements IRenderer {
         shader.createUniform("viewMatrix");
         shader.createUniform("ambientLight");
         shader.createUniform("specularPower");
+        shader.createUniform("skyColor");
         shader.createDirectionalLightUniform("directionalLight");
         shader.createMaterialUniform("material");
         shader.createPointLightListUniform("pointLights", Consts.MAX_POINT_LIGHTS);
@@ -76,6 +77,7 @@ public class EntityRenderer implements IRenderer {
         if(model.getTexture().isHasTransparency()){
             RenderManager.disableCulling();
         }
+        shader.setUniform("skyColor", Consts.SKY_COLOR);
         shader.setUniform("material", model.getMaterial());
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getId());
@@ -92,6 +94,7 @@ public class EntityRenderer implements IRenderer {
 
     @Override
     public void prepare(Object entity, Camera camera) {
+        //shader.setUniform("skyColor", Consts.SKY_COLOR);
         shader.setUniform("textureSampler", 0);
         shader.setUniforms("transformationMatrix", Transformation.createTransformationMatrix((Entity) entity));
         shader.setUniforms("viewMatrix", Transformation.getViewMatrix(camera));

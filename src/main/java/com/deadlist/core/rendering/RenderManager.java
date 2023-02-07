@@ -56,6 +56,7 @@ public class RenderManager {
     }
 
     public void prepare(Entity entity, Camera camera){
+
         entityRenderer.prepare(entity, camera);
     }
 
@@ -79,6 +80,7 @@ public class RenderManager {
 
     public void render(Camera camera, SceneManager sceneManager){
         clear();
+
 
         entityRenderer.renderer(camera, sceneManager);
         terrainRenderer.renderer(camera, sceneManager);

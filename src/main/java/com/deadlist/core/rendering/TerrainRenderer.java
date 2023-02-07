@@ -2,13 +2,9 @@ package com.deadlist.core.rendering;
 
 import com.deadlist.core.Camera;
 import com.deadlist.core.ShaderManager;
-import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
 import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.entity.terrain.Terrain;
-import com.deadlist.core.lighting.DirectionalLight;
-import com.deadlist.core.lighting.PointLight;
-import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.core.utils.Transformation;
 import com.deadlist.core.utils.Utils;
@@ -19,9 +15,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TerrainRenderer implements IRenderer {
 
@@ -46,6 +40,7 @@ public class TerrainRenderer implements IRenderer {
         shader.createUniform("viewMatrix");
         shader.createUniform("ambientLight");
         shader.createUniform("specularPower");
+        shader.createUniform("skyColor");
         shader.createDirectionalLightUniform("directionalLight");
         shader.createMaterialUniform("material");
         shader.createPointLightListUniform("pointLights", Consts.MAX_POINT_LIGHTS);
@@ -75,6 +70,7 @@ public class TerrainRenderer implements IRenderer {
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
+        shader.setUniform("skyColor", Consts.SKY_COLOR);
         shader.setUniform("material", model.getMaterial());
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getId());

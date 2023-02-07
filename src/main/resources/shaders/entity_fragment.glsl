@@ -6,6 +6,7 @@ const int MAX_SPOT_LIGHTS = 5;
 in vec2 fragTextureCoord;
 in vec3 fragNormal;
 in vec3 fragPos;
+in float visibility;
 
 out vec4 fragColor;
 
@@ -46,6 +47,7 @@ uniform float specularPower;
 uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
+uniform vec4 skyColor;
 
 const float levels = 3;
 
@@ -155,7 +157,7 @@ void main(){
     }
 
     fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
-
+    fragColor = mix(skyColor, fragColor, visibility);
 }
 
 
