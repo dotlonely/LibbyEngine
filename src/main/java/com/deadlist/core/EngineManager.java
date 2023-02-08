@@ -1,5 +1,6 @@
 package com.deadlist.core;
 
+import com.deadlist.core.entity.Player;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.test.Launcher;
 import org.lwjgl.glfw.GLFW;
@@ -10,6 +11,7 @@ public class EngineManager {
     public static final long NANOSECOND = 1000000000L;
     public static final float FRAMERATE = 144;
 
+    private static long deltaTime;
     public static int fps;
     private static float frameTime = 1.0f/FRAMERATE;
 
@@ -49,11 +51,12 @@ public class EngineManager {
         while(isRunning){
             boolean render = false;
             long startTime = System.nanoTime();
-            long passedTime = startTime - lastTime;
+            deltaTime = startTime - lastTime;
+
             lastTime = startTime;
 
-            unprocessedTime += passedTime / (double) NANOSECOND;
-            frameCounter += passedTime;
+            unprocessedTime += deltaTime / (double) NANOSECOND;
+            frameCounter += deltaTime;
 
             input();
 
@@ -90,10 +93,9 @@ public class EngineManager {
         isRunning = false;
     }
 
-
     private void input(){
         mouseInput.input();
-        gameLogic.input(mouseInput);
+        gameLogic.input(window, mouseInput);
     }
 
     private void render(){
@@ -118,5 +120,9 @@ public class EngineManager {
 
     public static void setFps(int fps) {
         EngineManager.fps = fps;
+    }
+
+    public static float getDeltaTime(){
+        return (float)deltaTime * 0.000000001f;
     }
 }

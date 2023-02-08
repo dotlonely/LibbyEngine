@@ -1,6 +1,7 @@
 package com.deadlist.core;
 
 import com.deadlist.core.utils.Consts;
+import com.deadlist.test.Launcher;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -19,6 +20,8 @@ public class WindowManager {
 
     private boolean resize;
     private boolean vSync;
+
+    private boolean keyPress = false;
 
     private final Matrix4f projectionMatrix;
 
@@ -116,7 +119,8 @@ public class WindowManager {
 
         GL.createCapabilities();
 
-        GL11.glClearColor(Consts.SKY_COLOR.x, Consts.SKY_COLOR.y, Consts.SKY_COLOR.z, Consts.SKY_COLOR.w);
+        //GL11.glClearColor(Consts.SKY_COLOR.x, Consts.SKY_COLOR.y, Consts.SKY_COLOR.z, Consts.SKY_COLOR.w);
+        setClearColor(Consts.SKY_COLOR.x, Consts.SKY_COLOR.y, Consts.SKY_COLOR.z, Consts.SKY_COLOR.w);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_STENCIL_TEST);
         GL11.glEnable(GL11.GL_CULL_FACE);
@@ -139,6 +143,10 @@ public class WindowManager {
     public boolean isKeyPressed(int keycode){
         return GLFW.glfwGetKey(window, keycode) == GLFW.GLFW_PRESS;
     }
+    public boolean isKeyReleased(int keycode) {
+        return GLFW.glfwGetKey(window, keycode) == GLFW.GLFW_RELEASE;
+    }
+
 
     public boolean windowShouldClose(){
         return GLFW.glfwWindowShouldClose(window);

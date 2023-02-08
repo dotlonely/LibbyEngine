@@ -27,6 +27,7 @@ public class TestGame implements ILogic {
     private final WindowManager window;
     private  SceneManager sceneManager;
     private Camera camera;
+    private Player player;
     Vector3f cameraInc;
 
 
@@ -44,6 +45,8 @@ public class TestGame implements ILogic {
         renderer.init();
 
 
+        camera.setPosition(0, 10, 5);
+
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/grass.png"));
         TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/grassFlowers.png"));
         TerrainTexture greenTexture = new TerrainTexture(loader.loadTexture("textures/mossy.png"));
@@ -60,6 +63,12 @@ public class TestGame implements ILogic {
         sceneManager.addTerrain(terrain2);
 
         Random rnd = new Random();
+
+        Model playerModel = loader.loadObjModel("/models/girl.obj");
+        playerModel.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
+
+        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 0f, 0f), 0.1f);
+        sceneManager.addEntity(player);
 
         Model grass = loader.loadObjModel("/models/grassModel.obj");
         grass.setTexture(new Texture(loader.loadTexture("textures/grassTexture.png")), 1f);
@@ -118,32 +127,36 @@ public class TestGame implements ILogic {
         //pointLights = new PointLight[]{pointLight};
         sceneManager.setSpotLights(new SpotLight[]{spotLight});
         //spotLights = new SpotLight[]{spotLight, spotLight1};
+
+        player.init();
     }
 
     @Override
-    public void input(MouseInput mouseInput) {
+    public void input(WindowManager window, MouseInput mouseInput) {
+
         cameraInc.set(0,0,0);
-        if(window.isKeyPressed(GLFW.GLFW_KEY_W)){
-            cameraInc.z = -1;
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_S)){
-            cameraInc.z = 1;
-        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_W)){
+//            cameraInc.z = -1;
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_S)){
+//            cameraInc.z = 1;
+//        }
 
-        if(window.isKeyPressed(GLFW.GLFW_KEY_A)){
-            cameraInc.x = -1;
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_D)){
-            cameraInc.x = 1;
-        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_A)){
+//            cameraInc.x = -1;
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_D)){
+//            cameraInc.x = 1;
+//        }
 
-        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
-            cameraInc.y = -1;
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)){
-            cameraInc.y = 1;
-        }
+        player.move(window);
 
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
+//            cameraInc.y = -1;
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)){
+//            cameraInc.y = 1;
+//        }
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
             sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
@@ -193,6 +206,11 @@ public class TestGame implements ILogic {
 
     @Override
     public void update() {
+
+        System.out.println(player.getNumJumps());
+
+
+        //System.out.println(EngineManager.getDeltaTime());
 
         float cameraStep = Consts.CAMERA_STEP;
 

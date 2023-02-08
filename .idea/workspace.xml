@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added Wireframe mode (Press Y to enable and T to disable)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/TerrainTexture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/TerrainTexturePack.java" afterDir="false" />
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added terrain blending">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/terrain/Terrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ILogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ILogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/EntityRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/RenderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/rendering/TerrainRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/Consts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textures/blue.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675796387566</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Added terrain blending">
+      <created>1675802992315</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1675802992315</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -288,12 +294,13 @@
     <MESSAGE value="Added transparency support" />
     <MESSAGE value="Added added fog support" />
     <MESSAGE value="Added Wireframe mode (Press Y to enable and T to disable)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Wireframe mode (Press Y to enable and T to disable)" />
+    <MESSAGE value="Added terrain blending" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added terrain blending" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.Exception" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>

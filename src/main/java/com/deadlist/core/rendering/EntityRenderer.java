@@ -94,7 +94,6 @@ public class EntityRenderer implements IRenderer {
 
     @Override
     public void prepare(Object entity, Camera camera) {
-        //shader.setUniform("skyColor", Consts.SKY_COLOR);
         shader.setUniform("textureSampler", 0);
         shader.setUniforms("transformationMatrix", Transformation.createTransformationMatrix((Entity) entity));
         shader.setUniforms("viewMatrix", Transformation.getViewMatrix(camera));
