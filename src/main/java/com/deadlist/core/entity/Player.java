@@ -4,8 +4,6 @@ import com.deadlist.core.EngineManager;
 import com.deadlist.core.ILogic;
 import com.deadlist.core.MouseInput;
 import com.deadlist.core.WindowManager;
-import com.deadlist.core.utils.Consts;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
@@ -98,7 +96,7 @@ public class Player extends Entity implements ILogic {
     }
 
     @Override
-    public void update() {
+    public void update(MouseInput mouseInput) {
     }
 
     @Override

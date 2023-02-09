@@ -8,7 +8,7 @@ public interface ILogic {
 
     void input(WindowManager window, MouseInput mouseInput);
 
-    void update();
+    void update(MouseInput mouseInput);
 
     void render();
 

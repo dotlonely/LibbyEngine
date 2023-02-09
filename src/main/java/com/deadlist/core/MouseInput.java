@@ -10,6 +10,8 @@ public class MouseInput {
     private final Vector2d previousPos;
     private final Vector2d currentPos;
 
+    private static float xScroll;
+    private static float yScroll;
     private final Vector2f displVec;
 
     private boolean inWindow = false;
@@ -26,6 +28,11 @@ public class MouseInput {
         GLFW.glfwSetCursorPosCallback(Launcher.getWindow().getWindowHandle(), (window, xpos, ypos) -> {
             currentPos.x = xpos;
             currentPos.y = ypos;
+        });
+
+        GLFW.glfwSetScrollCallback(Launcher.getWindow().getWindowHandle(), (window, xpos, ypos) -> {
+           xScroll = (float) xpos;
+           yScroll = (float) ypos;
         });
 
         GLFW.glfwSetCursorEnterCallback(Launcher.getWindow().getWindowHandle(), (window, entered) -> {
@@ -56,10 +63,23 @@ public class MouseInput {
         }
         previousPos.x = currentPos.x;
         previousPos.y = currentPos.y;
+
+    }
+
+    public void endFrame(){
+        yScroll = 0.0f;
     }
 
     public Vector2f getDisplVec() {
         return displVec;
+    }
+
+    public float getYScroll(){
+        return yScroll;
+    }
+
+    public float getXScroll(){
+        return xScroll;
     }
 
     public boolean isLeftButtonPress() {
@@ -69,7 +89,6 @@ public class MouseInput {
     public boolean isRightButtonPress() {
         return rightButtonPress;
     }
-
     public boolean getIsInWindow(){
         return inWindow;
     }

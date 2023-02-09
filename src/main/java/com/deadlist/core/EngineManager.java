@@ -104,7 +104,7 @@ public class EngineManager {
     }
 
     private void update(){
-        gameLogic.update();
+        gameLogic.update(mouseInput);
     }
 
     private void cleanup(){
