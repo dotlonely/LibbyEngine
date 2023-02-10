@@ -4,6 +4,8 @@ import com.deadlist.core.ObjectLoader;
 import com.deadlist.core.entity.Material;
 import com.deadlist.core.entity.Model;
 import com.deadlist.core.entity.Texture;
+import com.deadlist.core.utils.Utils;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
@@ -28,6 +30,8 @@ public class Terrain {
     private TerrainTexturePack terrainTexturePack;
     private TerrainTexture blendMap;
 
+    private float[][] heights;
+
     public Terrain(Vector3f position, ObjectLoader loader, Material material, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap, String heightMap) {
         this.position = position;
         this.model = generateTerrain(loader, heightMap);
@@ -45,7 +49,7 @@ public class Terrain {
         }
 
         int VERTEX_COUNT = image.getHeight();
-
+        heights = new float[VERTEX_COUNT][VERTEX_COUNT];
 
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
@@ -57,7 +61,9 @@ public class Terrain {
         for (int i = 0; i < VERTEX_COUNT; i++) {
             for (int j = 0; j < VERTEX_COUNT; j++) {
                 vertices[vertexPointer * 3] = j / (VERTEX_COUNT - 1.0f) * SIZE;
-                vertices[vertexPointer * 3 + 1] = getHeight(j, i, image); //height map
+                float height = getHeight(j, i, image);
+                heights[j][i] = height;
+                vertices[vertexPointer * 3 + 1] = height; //height map
                 vertices[vertexPointer * 3 + 2] = i / (VERTEX_COUNT - 1.0f) * SIZE;
                 Vector3f normal = calculateNormal(j, i, image);
                 normals[vertexPointer * 3] =normal.x;
@@ -99,6 +105,34 @@ public class Terrain {
         height *= MAX_HEIGHT;
         return height;
     }
+
+    public float getHeightOfTerrain(float worldX, float worldZ){
+        float terrainX = worldX - this.position.x;
+        float terrainZ = worldZ - this.position.z;
+        float gridSquareSize = SIZE / ((float)heights.length - 1);
+        int gridX = (int) Math.floor(terrainX / gridSquareSize);
+        int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
+
+        if(gridX >= heights.length - 1 || gridZ >= heights.length - 1 || gridX < 0 || gridZ < 0){
+            return 0;
+        }
+
+        float xCoord = (terrainX % gridSquareSize) / gridSquareSize;
+        float zCoord = (terrainZ % gridSquareSize) / gridSquareSize;
+        float answer;
+        if(xCoord <= (1 - zCoord)){
+            answer = Utils.barryCentric(new Vector3f(0, heights[gridX][gridZ], 0), new Vector3f(1,
+                    heights[gridX + 1][gridZ], 0), new Vector3f(0,
+                    heights[gridX][gridZ + 1], 1), new Vector2f(xCoord, zCoord));
+        }else{
+            answer = Utils.barryCentric(new Vector3f(1, heights[gridX + 1][gridZ], 0), new Vector3f(1,
+                    heights[gridX + 1][gridZ + 1], 1), new Vector3f(0,
+                    heights[gridX][gridZ + 1], 1), new Vector2f(xCoord, zCoord));
+        }
+
+        return answer;
+    }
+
 
     private Vector3f calculateNormal(int x, int z, BufferedImage heightMap){
         float heightL = getHeight(x+1, z, heightMap);

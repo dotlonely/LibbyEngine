@@ -10,14 +10,11 @@ import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
 import com.deadlist.core.utils.Consts;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class TestGame implements ILogic {
@@ -28,6 +25,7 @@ public class TestGame implements ILogic {
     private  SceneManager sceneManager;
     private Camera camera;
     private Player player;
+    private Terrain terrain;
     Vector3f cameraInc;
 
 
@@ -55,19 +53,19 @@ public class TestGame implements ILogic {
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, redTexture, greenTexture, blueTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("textures/blendMap.png"));
 
-        Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
+        terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
                 new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
-        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader,
-                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
+//        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader,
+//                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
         sceneManager.addTerrain(terrain);
-        sceneManager.addTerrain(terrain2);
+//        sceneManager.addTerrain(terrain2);
 
         Random rnd = new Random();
 
-        Model playerModel = loader.loadObjModel("/models/girl.obj");
+        Model playerModel = loader.loadObjModel("/models/cube.obj");
         playerModel.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
-        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 0.05f);
+        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 1f);
         sceneManager.addEntity(player);
 
         camera = new Camera(player);
@@ -85,17 +83,18 @@ public class TestGame implements ILogic {
 
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 200;
-            float y = rnd.nextFloat() * 150;
             float z =rnd.nextFloat() * -400;
+            float y = terrain.getHeightOfTerrain(x, z);
+            float objectOffset = -1;
 
-            if(y < 50){
-                sceneManager.addEntity(new Entity(grass, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), 1f));
+            if(i < 50){
+                sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
-            else if(y >= 50 && y < 100){
-                sceneManager.addEntity(new Entity(model1, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), .5f));
+            else if(i >= 50 && i < 100){
+                sceneManager.addEntity(new Entity(model1, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), .5f));
             }
             else{
-                sceneManager.addEntity(new Entity(fern, new Vector3f(x, -1f, z), new Vector3f(0f, 0f, 0f), 1f));
+                sceneManager.addEntity(new Entity(fern, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
 
         }
@@ -128,7 +127,9 @@ public class TestGame implements ILogic {
         sceneManager.setSpotLights(new SpotLight[]{spotLight});
         //spotLights = new SpotLight[]{spotLight, spotLight1};
 
+        player.setTerrain(terrain);
         player.init();
+
     }
 
     @Override

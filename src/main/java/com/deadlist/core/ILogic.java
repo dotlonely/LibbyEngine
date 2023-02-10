@@ -1,6 +1,6 @@
 package com.deadlist.core;
 
-import com.deadlist.core.entity.Player;
+import com.deadlist.core.entity.terrain.Terrain;
 
 public interface ILogic {
 

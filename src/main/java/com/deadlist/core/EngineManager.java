@@ -1,6 +1,7 @@
 package com.deadlist.core;
 
 import com.deadlist.core.entity.Player;
+import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.test.Launcher;
 import org.lwjgl.glfw.GLFW;
