@@ -7,12 +7,20 @@ import com.deadlist.core.entity.Texture;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.temporal.ValueRange;
 
 public class Terrain {
 
     private static final float SIZE = 800;
-    private static final int VERTEX_COUNT = 128;
+    private static final float MAX_HEIGHT = 40;
+    private static final float MIN_HEIGHT = -40;
+    private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
+
+
 
     private Vector3f position;
     private Model model;
@@ -20,14 +28,24 @@ public class Terrain {
     private TerrainTexturePack terrainTexturePack;
     private TerrainTexture blendMap;
 
-    public Terrain(Vector3f position, ObjectLoader loader, Material material, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap) {
+    public Terrain(Vector3f position, ObjectLoader loader, Material material, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap, String heightMap) {
         this.position = position;
-        this.model = generateTerrain(loader);
+        this.model = generateTerrain(loader, heightMap);
         this.terrainTexturePack = terrainTexturePack;
         this.blendMap = blendMap;
     }
 
-    private Model generateTerrain(ObjectLoader loader){
+    private Model generateTerrain(ObjectLoader loader, String heightMap){
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("textures/" + heightMap + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int VERTEX_COUNT = image.getHeight();
+
 
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
@@ -39,11 +57,12 @@ public class Terrain {
         for (int i = 0; i < VERTEX_COUNT; i++) {
             for (int j = 0; j < VERTEX_COUNT; j++) {
                 vertices[vertexPointer * 3] = j / (VERTEX_COUNT - 1.0f) * SIZE;
-                vertices[vertexPointer * 3 + 1] = 0; //height map
+                vertices[vertexPointer * 3 + 1] = getHeight(j, i, image); //height map
                 vertices[vertexPointer * 3 + 2] = i / (VERTEX_COUNT - 1.0f) * SIZE;
-                normals[vertexPointer * 3] = 0;
-                normals[vertexPointer * 3 + 1] = 1;
-                normals[vertexPointer * 3 + 2] = 0;
+                Vector3f normal = calculateNormal(j, i, image);
+                normals[vertexPointer * 3] =normal.x;
+                normals[vertexPointer * 3 + 1] = normal.y;
+                normals[vertexPointer * 3 + 2] = normal.z;
                 textureCoords[vertexPointer * 2] = j / (VERTEX_COUNT - 1.0f);
                 textureCoords[vertexPointer * 2 + 1] = i / (VERTEX_COUNT - 1.0f);
                 vertexPointer++;
@@ -68,6 +87,27 @@ public class Terrain {
 
         return loader.loadModel(vertices, textureCoords, normals, indices);
 
+    }
+
+    private float getHeight(int x, int z, BufferedImage image){
+        if(x < 0  || x >= image.getHeight() || z < 0 || z >= image.getHeight()){
+            return 0;
+        }
+        float height = image.getRGB(x, z);
+        height += MAX_PIXEL_COLOR / 2;
+        height /= MAX_PIXEL_COLOR / 2;
+        height *= MAX_HEIGHT;
+        return height;
+    }
+
+    private Vector3f calculateNormal(int x, int z, BufferedImage heightMap){
+        float heightL = getHeight(x+1, z, heightMap);
+        float heightR = getHeight(x-1, z, heightMap);
+        float heightU = getHeight(x, z+1, heightMap);
+        float heightD = getHeight(x, z-1, heightMap);
+        Vector3f normal = new Vector3f(heightL - heightR, 2f, heightD - heightU);
+        normal.normalize();
+        return normal;
     }
 
     public Vector3f getPosition() {

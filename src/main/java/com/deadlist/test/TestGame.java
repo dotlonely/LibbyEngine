@@ -56,9 +56,9 @@ public class TestGame implements ILogic {
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("textures/blendMap.png"));
 
         Terrain terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
-                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap);
+                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
         Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader,
-                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap);
+                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
         sceneManager.addTerrain(terrain);
         sceneManager.addTerrain(terrain2);
 
@@ -75,7 +75,6 @@ public class TestGame implements ILogic {
         Model grass = loader.loadObjModel("/models/grassModel.obj");
         grass.setTexture(new Texture(loader.loadTexture("textures/grassTexture.png")), 1f);
         grass.getTexture().setHasTransparency(true);
-        //grass.getTexture().setUseFakeLighting(true);
 
         Model model1 = loader.loadObjModel("/models/lowPolyTree.obj");
         model1.setTexture(new Texture(loader.loadTexture("textures/lowPolyTree.png")), 1f);
@@ -83,7 +82,6 @@ public class TestGame implements ILogic {
         Model fern = loader.loadObjModel("/models/fern.obj");
         fern.setTexture(new Texture(loader.loadTexture("textures/fern.png")), 1f);
         fern.getTexture().setHasTransparency(true);
-        //fern.getTexture().setUseFakeLighting(true);
 
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 200;
@@ -213,7 +211,6 @@ public class TestGame implements ILogic {
     public void update(MouseInput mouseInput) {
 
         float cameraStep = Consts.CAMERA_STEP;
-        System.out.println(camera.getDistanceFromPlayer());
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT)){
             cameraStep = Consts.CAMERA_SPRINT_STEP;
