@@ -103,16 +103,22 @@ public class Camera {
     }
 
     private void calculateZoom(MouseInput mouseInput){
-        float zoomLevel = mouseInput.getYScroll() * 0.001f;
+        float zoomLevel = mouseInput.getYScroll() * 0.0005f;
         distanceFromPlayer -= zoomLevel;
+        if(distanceFromPlayer < 5){
+            distanceFromPlayer = 5;
+        }
+        else if(distanceFromPlayer > 50){
+            distanceFromPlayer = 50;
+        }
     }
 
     private void calculatePitch(MouseInput mouseInput){
         if(mouseInput.isLeftButtonPress()){
             float changePitch = mouseInput.getDisplVec().x * 0.1f;
             pitch -= changePitch;
-            if(pitch < 0){
-                pitch = 0;
+            if(pitch < 1){
+                pitch = 1;
             }
             else if (pitch > 90){
                 pitch = 90;
@@ -125,5 +131,9 @@ public class Camera {
             float angleChange = mouseInput.getDisplVec().y * 0.3f;
             angleAroundPlayer -= angleChange;
         }
+    }
+
+    public float getDistanceFromPlayer(){
+        return distanceFromPlayer;
     }
 }

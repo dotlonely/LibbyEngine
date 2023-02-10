@@ -67,7 +67,7 @@ public class TestGame implements ILogic {
         Model playerModel = loader.loadObjModel("/models/girl.obj");
         playerModel.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
-        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 0.1f);
+        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 0.05f);
         sceneManager.addEntity(player);
 
         camera = new Camera(player);
@@ -212,13 +212,8 @@ public class TestGame implements ILogic {
     @Override
     public void update(MouseInput mouseInput) {
 
-        //System.out.println(player.getNumJumps());
-
-        System.out.println(mouseInput.getYScroll());
-
-        //System.out.println(EngineManager.getDeltaTime());
-
         float cameraStep = Consts.CAMERA_STEP;
+        System.out.println(camera.getDistanceFromPlayer());
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT)){
             cameraStep = Consts.CAMERA_SPRINT_STEP;

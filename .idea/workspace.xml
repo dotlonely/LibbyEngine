@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added player movement">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added third person camera">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ILogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ILogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/MouseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/MouseInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ObjectLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ObjectLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -261,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675837735654</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Added third person camera">
+      <created>1675980298907</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1675980298907</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -301,7 +305,8 @@
     <MESSAGE value="Added Wireframe mode (Press Y to enable and T to disable)" />
     <MESSAGE value="Added terrain blending" />
     <MESSAGE value="Added player movement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added player movement" />
+    <MESSAGE value="Added third person camera" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added third person camera" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
