@@ -15,8 +15,6 @@ public class Player extends Entity implements ILogic{
     private static final float GRAVITY = -75;
     private static final float JUMP_FORCE = 30;
 
-    private static final float TERRAIN_HEIGHT = -1;
-
     private float currentSpeed = 0;
     private float currentTurnSpeed = 0;
     private float verticalSpeed = 0;
@@ -36,9 +34,8 @@ public class Player extends Entity implements ILogic{
         float distance = currentSpeed * EngineManager.getDeltaTime();
         float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotation().y)));
         float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotation().y)));
-        super.incPos(dx, 0, dz);
         verticalSpeed += GRAVITY * EngineManager.getDeltaTime();
-        super.incPos(0, verticalSpeed * EngineManager.getDeltaTime(), 0);
+        super.incPos(dx, verticalSpeed * EngineManager.getDeltaTime(), dz);
         float terrainHeight = terrain.getHeightOfTerrain(super.getPos().x, super.getPos().z);
 
         if(super.getPos().y < terrainHeight){
@@ -120,6 +117,13 @@ public class Player extends Entity implements ILogic{
 
     public int getNumJumps(){
         return numJumps;
+    }
+
+    public String positionToString(){
+        float xPos = Math.round(getPos().x);
+        float zPos = Math.round(getPos().z);
+
+        return ("(" + xPos + ", " + zPos + ")");
     }
 
 }

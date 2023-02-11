@@ -9,6 +9,8 @@ import com.deadlist.core.utils.Consts;
 import com.deadlist.core.utils.Transformation;
 import com.deadlist.core.utils.Utils;
 import com.deadlist.test.Launcher;
+import org.joml.Vector2f;
+import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -42,6 +44,8 @@ public class EntityRenderer implements IRenderer {
         shader.createUniform("ambientLight");
         shader.createUniform("specularPower");
         shader.createUniform("skyColor");
+        shader.createUniform("numberOfRows");
+        shader.createUniform("offset");
         shader.createDirectionalLightUniform("directionalLight");
         shader.createMaterialUniform("material");
         shader.createPointLightListUniform("pointLights", Consts.MAX_POINT_LIGHTS);
@@ -74,6 +78,7 @@ public class EntityRenderer implements IRenderer {
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
+        shader.setUniform("numberOfRows", model.getTexture().getNumberOfRows());
         if(model.getTexture().isHasTransparency()){
             RenderManager.disableCulling();
         }
@@ -96,6 +101,7 @@ public class EntityRenderer implements IRenderer {
     public void prepare(Object entity, Camera camera) {
         shader.setUniform("textureSampler", 0);
         shader.setUniforms("transformationMatrix", Transformation.createTransformationMatrix((Entity) entity));
+        shader.setUniform("offset", new Vector2f(((Entity) entity).getTextureXOffset(), ((Entity) entity).getTextureYOffset()));
         shader.setUniforms("viewMatrix", Transformation.getViewMatrix(camera));
     }
 

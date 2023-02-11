@@ -29,11 +29,15 @@ public class TestGame implements ILogic {
     Vector3f cameraInc;
 
 
+    //TODO: Figure out why player is colliding with something at position x,z -255 and x,z 255
+    // Now its not just at 255 sometimes you can go further and get stuck at different points
+
+
     public TestGame(){
         renderer = new RenderManager();
         window = Launcher.getWindow();
         loader = new ObjectLoader();
-        //camera = new Camera(player);
+        camera = new Camera(player);
         cameraInc = new Vector3f(0,0,0);
         sceneManager = new SceneManager(-90);
     }
@@ -55,10 +59,8 @@ public class TestGame implements ILogic {
 
         terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
                 new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
-//        Terrain terrain2 = new Terrain(new Vector3f(-800f, -1f, -800f), loader,
-//                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
+
         sceneManager.addTerrain(terrain);
-//        sceneManager.addTerrain(terrain2);
 
         Random rnd = new Random();
 
@@ -74,27 +76,28 @@ public class TestGame implements ILogic {
         grass.setTexture(new Texture(loader.loadTexture("textures/grassTexture.png")), 1f);
         grass.getTexture().setHasTransparency(true);
 
-        Model model1 = loader.loadObjModel("/models/lowPolyTree.obj");
-        model1.setTexture(new Texture(loader.loadTexture("textures/lowPolyTree.png")), 1f);
+        Model tree = loader.loadObjModel("/models/lowPolyTree.obj");
+        tree.setTexture(new Texture(loader.loadTexture("textures/lowPolyTree.png")), 1f);
 
         Model fern = loader.loadObjModel("/models/fern.obj");
-        fern.setTexture(new Texture(loader.loadTexture("textures/fern.png")), 1f);
+        fern.setTexture(new Texture(loader.loadTexture("textures/fernAtlas.png")), 1f);
+        fern.getTexture().setNumberOfRows(2);
         fern.getTexture().setHasTransparency(true);
 
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 200;
-            float z =rnd.nextFloat() * -400;
+            float z = rnd.nextFloat() * -400;
             float y = terrain.getHeightOfTerrain(x, z);
             float objectOffset = -1;
 
             if(i < 50){
                 sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
-            else if(i >= 50 && i < 100){
-                sceneManager.addEntity(new Entity(model1, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), .5f));
+            else if(i < 100 && i > 50){
+                sceneManager.addEntity(new Entity(tree, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), .5f));
             }
             else{
-                sceneManager.addEntity(new Entity(fern, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
+                sceneManager.addEntity(new Entity(fern, rnd.nextInt(4), new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
 
         }
@@ -211,14 +214,7 @@ public class TestGame implements ILogic {
     @Override
     public void update(MouseInput mouseInput) {
 
-        float cameraStep = Consts.CAMERA_STEP;
-
-        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT)){
-            cameraStep = Consts.CAMERA_SPRINT_STEP;
-        }
-
-        camera.movePosition(cameraInc.x * cameraStep, cameraInc.y * cameraStep, cameraInc.z * cameraStep);
-
+        System.out.println(player.positionToString());
 
         for(Entity entity : sceneManager.getEntities()){
             renderer.processEntities(entity);

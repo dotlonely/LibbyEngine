@@ -12,7 +12,14 @@ out float visibility;
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
+
 uniform vec4 skyColor;
+
+//for some reason numberOfRows when set to float causes some objects to not render,
+//so it is set to int for now until fix is found
+//texture atlasing wont work until it is fixed
+uniform int numberOfRows;
+uniform vec2 offset;
 
 const float density = 0.007f;
 const float gradient = 1.5f;
@@ -26,7 +33,9 @@ void main() {
 
     fragNormal = normalize(worldPos.xyz);
     fragPos  = worldPos.xyz;
-    fragTextureCoord = textureCoord;
+
+    fragTextureCoord = (textureCoord / numberOfRows) + offset;
+    //fragTextureCoord = textureCoord;
 
     float distance = length(positionRelativeToCamera.xyz);
     visibility = exp(-pow((distance * density), gradient));
