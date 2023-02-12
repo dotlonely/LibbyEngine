@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Texture atlas support kind of works">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added textures for specific color palette">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/terrain_vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676145116242</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Added textures for specific color palette">
+      <created>1676166045536</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1676166045536</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -302,7 +310,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can render models to screen now" />
     <MESSAGE value="Added shader support" />
     <MESSAGE value="Added texture support" />
     <MESSAGE value="Added entity system and camera movement" />
@@ -327,7 +334,8 @@
     <MESSAGE value="Added mipmapping" />
     <MESSAGE value="Perlin noise png" />
     <MESSAGE value="Texture atlas support kind of works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Texture atlas support kind of works" />
+    <MESSAGE value="Added textures for specific color palette" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added textures for specific color palette" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

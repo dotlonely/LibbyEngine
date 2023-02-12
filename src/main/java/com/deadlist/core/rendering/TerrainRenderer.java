@@ -10,10 +10,7 @@ import com.deadlist.core.utils.Consts;
 import com.deadlist.core.utils.Transformation;
 import com.deadlist.core.utils.Utils;
 import com.deadlist.test.Launcher;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +85,7 @@ public class TerrainRenderer implements IRenderer {
 
     private void bindTextures(Terrain terrain){
         TerrainTexturePack texturePack = terrain.getTerrainTexturePack();
+        GL32.glProvokingVertex(GL32.GL_FIRST_VERTEX_CONVENTION);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getBackgroundTexture().getTextureID());
         GL13.glActiveTexture(GL13.GL_TEXTURE1);

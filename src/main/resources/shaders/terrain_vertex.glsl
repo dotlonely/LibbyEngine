@@ -4,7 +4,7 @@ in vec3 position;
 in vec2 textureCoord;
 in vec3 normal;
 
-out vec2 fragTextureCoord;
+flat out vec2 fragTextureCoord;
 out vec3 fragNormal;
 out vec3 fragPos;
 out float visibility;

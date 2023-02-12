@@ -3,7 +3,7 @@
 const int MAX_POINT_LIGHTS = 5;
 const int MAX_SPOT_LIGHTS = 5;
 
-in vec2 fragTextureCoord;
+flat in vec2 fragTextureCoord;
 in vec3 fragNormal;
 in vec3 fragPos;
 in float visibility;
