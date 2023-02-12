@@ -49,10 +49,10 @@ public class TestGame implements ILogic {
 
         //camera.setPosition(0, 10, 5);
 
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/grass.png"));
-        TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/grassFlowers.png"));
-        TerrainTexture greenTexture = new TerrainTexture(loader.loadTexture("textures/mossy.png"));
-        TerrainTexture blueTexture = new TerrainTexture(loader.loadTexture("textures/path.png"));
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/medGreen.png"));
+        TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/lightGreen.png"));
+        TerrainTexture greenTexture = new TerrainTexture(loader.loadTexture("textures/darkGreen.png"));
+        TerrainTexture blueTexture = new TerrainTexture(loader.loadTexture("textures/lightBrown.png"));
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, redTexture, greenTexture, blueTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("textures/blendMap.png"));
@@ -73,16 +73,21 @@ public class TestGame implements ILogic {
         camera = new Camera(player);
 
         Model grass = loader.loadObjModel("/models/grassModel.obj");
-        grass.setTexture(new Texture(loader.loadTexture("textures/grassTexture.png")), 1f);
+        grass.setTexture(new Texture(loader.loadTexture("textures/darkTan.png")), 1f);
         grass.getTexture().setHasTransparency(true);
 
         Model tree = loader.loadObjModel("/models/lowPolyTree.obj");
         tree.setTexture(new Texture(loader.loadTexture("textures/lowPolyTree.png")), 1f);
 
         Model fern = loader.loadObjModel("/models/fern.obj");
-        fern.setTexture(new Texture(loader.loadTexture("textures/fernAtlas.png")), 1f);
+        fern.setTexture(new Texture(loader.loadTexture("textures/maroonish.png")), 1f);
         fern.getTexture().setNumberOfRows(2);
         fern.getTexture().setHasTransparency(true);
+
+        Model brazier = loader.loadObjModel("/models/brazier.obj");
+        brazier.setTexture(new Texture(loader.loadTexture("textures/medPurple.png")), 1f);
+
+
 
         for (int i = 0; i < 200; i++) {
             float x = rnd.nextFloat() * 200;
@@ -94,7 +99,7 @@ public class TestGame implements ILogic {
                 sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
             else if(i < 100 && i > 50){
-                sceneManager.addEntity(new Entity(tree, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), .5f));
+                sceneManager.addEntity(new Entity(brazier, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
             else{
                 sceneManager.addEntity(new Entity(fern, rnd.nextInt(4), new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
