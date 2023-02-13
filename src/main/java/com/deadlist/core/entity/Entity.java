@@ -62,6 +62,11 @@ public class Entity {
         this.pos.y = y;
         this.pos.z = z;
     }
+    public void setPos(Vector3f position) {
+        this.pos.x = position.x;
+        this.pos.y = position.y;
+        this.pos.z = position.z;
+    }
 
     public void incScale(float scale){
         this.scale += scale;

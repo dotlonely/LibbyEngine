@@ -9,7 +9,6 @@ import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
-import com.deadlist.core.utils.Consts;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
@@ -28,6 +27,9 @@ public class TestGame implements ILogic {
     private Terrain terrain;
     Vector3f cameraInc;
 
+    private Entity lightGizmo;
+    private PointLight playerLight;
+
 
     //TODO: Figure out why player is colliding with something at position x,z -255 and x,z 255
     // Now its not just at 255 sometimes you can go further and get stuck at different points
@@ -45,7 +47,6 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderer.init();
-
 
         //camera.setPosition(0, 10, 5);
 
@@ -87,6 +88,9 @@ public class TestGame implements ILogic {
         Model brazier = loader.loadObjModel("/models/brazier.obj");
         brazier.setTexture(new Texture(loader.loadTexture("textures/medPurple.png")), 1f);
 
+        Model gizmo = loader.loadObjModel("/models/cube.obj");
+        gizmo.setTexture(new Texture(loader.loadTexture("textures/white.png")), 1f);
+
 
 
         for (int i = 0; i < 200; i++) {
@@ -95,26 +99,58 @@ public class TestGame implements ILogic {
             float y = terrain.getHeightOfTerrain(x, z);
             float objectOffset = -1;
 
-            if(i < 50){
-                sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
+//            if(i < 50){
+//                sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
+//            }
+//            else if(i < 100 && i > 50){
+//                sceneManager.addEntity(new Entity(brazier, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
+//            }
+//            else{
+//                sceneManager.addEntity(new Entity(fern, rnd.nextInt(4), new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
+//            }
+
+            if(i < 100){
+               sceneManager.addEntity(new Entity(grass, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
-            else if(i < 100 && i > 50){
-                sceneManager.addEntity(new Entity(brazier, new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
-            }
-            else{
+            else if(i > 100){
                 sceneManager.addEntity(new Entity(fern, rnd.nextInt(4), new Vector3f(x, y + objectOffset, z), new Vector3f(0f, 0f, 0f), 1f));
             }
 
         }
+        Entity entity1 = new Entity(brazier, new Vector3f(0,terrain.getHeightOfTerrain(0,0),0), new Vector3f(0, 0, 0), 1);
+        Entity entity2 = new Entity(brazier, new Vector3f(5,terrain.getHeightOfTerrain(5,-5),-5), new Vector3f(0, 0, 0), 1);
+        sceneManager.addEntity(entity1);
+        sceneManager.addEntity(entity2);
 
+        //sceneManager.addEntity(new Entity(brazier, new Vector3f(0,terrain.getHeightOfTerrain(0,0),0), new Vector3f(0, 0, 0), 1));
+        //sceneManager.addEntity(new Entity(brazier, new Vector3f(5,terrain.getHeightOfTerrain(5,-5),-5), new Vector3f(0, 0, 0), 1));
+        sceneManager.addEntity(new Entity(brazier, new Vector3f(10,terrain.getHeightOfTerrain(10,-10),-10), new Vector3f(0, 0, 0), 1));
+        sceneManager.addEntity(new Entity(brazier, new Vector3f(15,terrain.getHeightOfTerrain(15,-15),-15), new Vector3f(0, 0, 0), 1));
+        sceneManager.addEntity(new Entity(brazier, new Vector3f(20,terrain.getHeightOfTerrain(20,-20),-20), new Vector3f(0, 0, 0), 1));
 
-        float lightIntensity = 1.0f;
+        //Point lights on braziers
+        float pointLightIntensity = 0.25f;
+        Vector3f pointLightPosition = new Vector3f();
+        //Vector3f pointLightColor = new Vector3f(1,0.55f,0);
+        Vector3f pointLightColor = new Vector3f(1,1f,1);
 
-        //point light
-        float pointLightIntensity = 0f;
+       // PointLight pointLight = new PointLight(pointLightColor, new Vector3f(0,(terrain.getHeightOfTerrain(0,0) + 10),0), pointLightIntensity);
+        PointLight pointLight = new PointLight(pointLightColor, new Vector3f(entity1.getPos().x, entity1.getPos().y, entity1.getPos().z), pointLightIntensity);
+        playerLight = new PointLight(pointLightColor, new Vector3f(player.getPos().x, entity1.getPos().y + 2, entity1.getPos().z), pointLightIntensity);
+
+        lightGizmo = new Entity(gizmo, pointLight.getPosition(), new Vector3f().zero(), .5f);
+        sceneManager.addEntity(lightGizmo);
+
+        float lightIntensity = 0.0f;
+
+//        //point light
+//        float pointLightIntensity = 0f;
+//        Vector3f lightPosition = new Vector3f(-0.5f,-0.5f,-3.2f);
+//        Vector3f lightColor = new Vector3f(1,1,1);
+//        PointLight pointLight = new PointLight(lightColor, lightPosition, pointLightIntensity);
+
+        Vector3f lightColor = new Vector3f(1, 1, 1);
         Vector3f lightPosition = new Vector3f(-0.5f,-0.5f,-3.2f);
-        Vector3f lightColor = new Vector3f(1,1,1);
-        PointLight pointLight = new PointLight(lightColor, lightPosition, pointLightIntensity);
 
         //spotlight
         float spotLightIntensity = 0f;
@@ -130,13 +166,14 @@ public class TestGame implements ILogic {
         lightPosition = new Vector3f(10,10,10);
         sceneManager.setDirectionalLight(new DirectionalLight(lightColor, lightPosition, lightIntensity));
 
-        sceneManager.setPointLights(new PointLight[]{pointLight});
+        sceneManager.setPointLights(new PointLight[]{pointLight, playerLight});
         //pointLights = new PointLight[]{pointLight};
         sceneManager.setSpotLights(new SpotLight[]{spotLight});
         //spotLights = new SpotLight[]{spotLight, spotLight1};
 
         player.setTerrain(terrain);
         player.init();
+
 
     }
 
@@ -168,38 +205,58 @@ public class TestGame implements ILogic {
 //            cameraInc.y = 1;
 //        }
 
-        if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
-                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z - 1));
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_P)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
-                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z + 1));
-        }
-
-        if(window.isKeyPressed(GLFW.GLFW_KEY_N)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x - 1,
-                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_M)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x + 1,
-                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
-        }
-
-        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
-                    sceneManager.getDirectionalLight().getDirection().y + 1, sceneManager.getDirectionalLight().getDirection().z));
-        }
-        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
-            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
-                    sceneManager.getDirectionalLight().getDirection().y - 1, sceneManager.getDirectionalLight().getDirection().z));
-        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+//                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z - 1));
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_P)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+//                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z + 1));
+//        }
+//
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_N)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x - 1,
+//                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_M)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x + 1,
+//                    sceneManager.getDirectionalLight().getDirection().y, sceneManager.getDirectionalLight().getDirection().z));
+//        }
+//
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+//                    sceneManager.getDirectionalLight().getDirection().y + 1, sceneManager.getDirectionalLight().getDirection().z));
+//        }
+//        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
+//            sceneManager.getDirectionalLight().setDirection(new Vector3f(sceneManager.getDirectionalLight().getDirection().x,
+//                    sceneManager.getDirectionalLight().getDirection().y - 1, sceneManager.getDirectionalLight().getDirection().z));
+//        }
 
 //
 //        if(mouseInput.isRightButtonPress()){
 //            Vector2f rotVec = mouseInput.getDisplVec();
 //            camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
 //        }
+
+        if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
+            sceneManager.getPointLight(0).incIntensity(-1 * EngineManager.getDeltaTime());
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_P)){
+            sceneManager.getPointLight(0).incIntensity(1 * EngineManager.getDeltaTime());
+        }
+
+
+        if(window.isKeyPressed(GLFW.GLFW_KEY_I)){
+            sceneManager.getPointLight(0).setPosition(new Vector3f(sceneManager.getPointLight(0).getPosition().x,
+                    sceneManager.getPointLight(0).getPosition().y + (5 * EngineManager.getDeltaTime()),
+                    sceneManager.getPointLight(0).getPosition().z));
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_U)){
+            sceneManager.getPointLight(0).setPosition(new Vector3f(sceneManager.getPointLight(0).getPosition().x,
+                    sceneManager.getPointLight(0).getPosition().y - (5 * EngineManager.getDeltaTime()),
+                    sceneManager.getPointLight(0).getPosition().z));
+        }
+
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_Y)){
             RenderManager.enableWireframe();
@@ -220,6 +277,10 @@ public class TestGame implements ILogic {
     public void update(MouseInput mouseInput) {
 
         System.out.println(player.positionToString());
+
+        lightGizmo.setPos(sceneManager.getPointLight(0).getPosition());
+        playerLight.setPosition(player.getPos());
+
 
         for(Entity entity : sceneManager.getEntities()){
             renderer.processEntities(entity);

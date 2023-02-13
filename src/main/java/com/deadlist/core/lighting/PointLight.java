@@ -48,6 +48,9 @@ public class PointLight {
     public void setIntensity(float intensity) {
         this.intensity = intensity;
     }
+    public void incIntensity(float amount){
+        this.intensity += amount;
+    }
 
     public float getConstant() {
         return constant;

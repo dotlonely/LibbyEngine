@@ -95,7 +95,7 @@ vec4 calcLightColor(vec3 light_color, float light_intensity, vec3 position, vec3
 
     //These two lines cel shade
     float level = floor(diffuseFactor * levels);
-    //diffuseFactor = level / levels;
+    diffuseFactor = level / levels;
 
 
     diffuseColor = diffuseC * vec4(light_color, 1.0) * light_intensity * diffuseFactor;
@@ -109,7 +109,7 @@ vec4 calcLightColor(vec3 light_color, float light_intensity, vec3 position, vec3
 
     //These two lines cel shade
     level = floor(specularFactor * levels);
-    //specularFactor = level / levels;
+    specularFactor = level / levels;
 
 
     specColor = specularC * light_intensity * specularFactor * material.reflectance * vec4(light_color, 1.0);
