@@ -12,7 +12,6 @@ import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -51,12 +50,12 @@ public class TestGame implements ILogic {
         renderer.init();
 
         //camera.setPosition(0, 10, 5);
+        GuiTexture catGuiTwo = new GuiTexture(loader.loadTexture("textures/nasa.png"), loader, new Vector2f(0.75f, 0.75f), new Vector2f(0.1f, 0.1f));
+        sceneManager.addGui(catGuiTwo);
 
         GuiTexture catGui = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
         sceneManager.addGui(catGui);
 
-        GuiTexture catGuiTwo = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(-0.5f, -0.5f), new Vector2f(0.1f, 0.1f));
-        sceneManager.addGui(catGuiTwo);
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/medGreen.png"));
         TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/lightGreen.png"));
