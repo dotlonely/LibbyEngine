@@ -10,7 +10,6 @@ import com.deadlist.core.utils.Transformation;
 import com.deadlist.core.utils.Utils;
 import com.deadlist.test.Launcher;
 import org.joml.Vector2f;
-import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -24,7 +23,6 @@ public class EntityRenderer implements IRenderer {
 
     ShaderManager shader;
     private Map<Model, List<Entity>> entities;
-
 
 
     public EntityRenderer() throws Exception{

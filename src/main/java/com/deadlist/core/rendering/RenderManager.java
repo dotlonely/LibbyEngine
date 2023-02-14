@@ -7,6 +7,7 @@ import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.Model;
 import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.entity.terrain.Terrain;
+import com.deadlist.core.guis.GuiTexture;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -23,6 +24,7 @@ public class RenderManager {
     private final WindowManager window;
     private EntityRenderer entityRenderer;
     private TerrainRenderer terrainRenderer;
+    private GuiRenderer guiRenderer;
 
     public RenderManager(){
         window = Launcher.getWindow();
@@ -32,9 +34,11 @@ public class RenderManager {
         enableCulling();
         entityRenderer = new EntityRenderer();
         terrainRenderer = new TerrainRenderer();
+        guiRenderer = new GuiRenderer();
 
         entityRenderer.init();
         terrainRenderer.init();
+        guiRenderer.init();
 
     }
 
@@ -53,23 +57,7 @@ public class RenderManager {
 
     public static void disableCulling(){
         GL11.glDisable(GL11.GL_CULL_FACE);
-
     }
-
-    public void bind(Model model){
-        entityRenderer.bind(model);
-    }
-
-
-    public void unbind(){
-        entityRenderer.unbind();
-    }
-
-    public void prepare(Entity entity, Camera camera){
-
-        entityRenderer.prepare(entity, camera);
-    }
-
 
     public static void renderLights(ShaderManager shader, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight){
         shader.setUniform("ambientLight", Consts.AMBIENT_LIGHT);
@@ -93,6 +81,7 @@ public class RenderManager {
 
         entityRenderer.renderer(camera, sceneManager);
         terrainRenderer.renderer(camera, sceneManager);
+        guiRenderer.renderer(camera, sceneManager);
     }
 
     public void processEntities(Entity entity){
@@ -109,6 +98,18 @@ public class RenderManager {
 
     public void processTerrain(Terrain terrain){
         terrainRenderer.getTerrains().add(terrain);
+    }
+
+    public void processGuis(GuiTexture gui){
+        List<GuiTexture> guiList = guiRenderer.getGuis().get(gui.getModel());
+        if(guiList != null){
+            guiList.add(gui);
+        }
+        else {
+            List<GuiTexture> newGuiList = new ArrayList<>();
+            newGuiList.add(gui);
+            guiRenderer.getGuis().put(gui.getModel(), newGuiList);
+        }
     }
 
     public void clear(){

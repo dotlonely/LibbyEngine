@@ -139,6 +139,13 @@ public class ObjectLoader {
         return new Model(id, indices.length);
     }
 
+    public Model loadModel(float[] vertices){
+        int id = createVAO();
+        storeDataInAttributeList(0, 2, vertices);
+        unbind();
+        return new Model(id, vertices.length / 2);
+    }
+
     public int loadTexture(String fileName) throws Exception{
         int width;
         int height;

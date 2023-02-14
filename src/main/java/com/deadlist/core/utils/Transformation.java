@@ -3,8 +3,10 @@ package com.deadlist.core.utils;
 import com.deadlist.core.Camera;
 import com.deadlist.core.entity.Entity;
 import com.deadlist.core.entity.terrain.Terrain;
+import com.deadlist.core.guis.GuiTexture;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 
 public class Transformation {
@@ -23,6 +25,13 @@ public class Transformation {
     public static Matrix4f createTransformationMatrix(Terrain terrain){
         Matrix4f matrix = new Matrix4f();
         matrix.identity().translate(terrain.getPosition()).scale(1);
+
+        return matrix;
+    }
+
+    public static Matrix4f createTransformationMatrix(GuiTexture gui){
+        Matrix4f matrix = new Matrix4f();
+        matrix.identity().translate(gui.getPosition().x, gui.getPosition().y, 0f).scale(gui.getScale().x, gui.getScale().y, 1f);
 
         return matrix;
     }

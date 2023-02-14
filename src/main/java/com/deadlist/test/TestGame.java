@@ -5,11 +5,14 @@ import com.deadlist.core.entity.*;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.entity.terrain.TerrainTexture;
 import com.deadlist.core.entity.terrain.TerrainTexturePack;
+import com.deadlist.core.guis.GuiTexture;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -26,7 +29,6 @@ public class TestGame implements ILogic {
     private Player player;
     private Terrain terrain;
     Vector3f cameraInc;
-
     private Entity lightGizmo;
     private PointLight playerLight;
 
@@ -49,6 +51,12 @@ public class TestGame implements ILogic {
         renderer.init();
 
         //camera.setPosition(0, 10, 5);
+
+        GuiTexture catGui = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+        sceneManager.addGui(catGui);
+
+        GuiTexture catGuiTwo = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(-0.5f, -0.5f), new Vector2f(0.1f, 0.1f));
+        sceneManager.addGui(catGuiTwo);
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/medGreen.png"));
         TerrainTexture redTexture = new TerrainTexture(loader.loadTexture("textures/lightGreen.png"));
@@ -131,15 +139,19 @@ public class TestGame implements ILogic {
         //Point lights on braziers
         float pointLightIntensity = 0.25f;
         Vector3f pointLightPosition = new Vector3f();
-        //Vector3f pointLightColor = new Vector3f(1,0.55f,0);
-        Vector3f pointLightColor = new Vector3f(1,1f,1);
+        Vector3f pointLightColor = new Vector3f(1,0.55f,0);
+        //Vector3f pointLightColor = new Vector3f(1,1f,1);
 
        // PointLight pointLight = new PointLight(pointLightColor, new Vector3f(0,(terrain.getHeightOfTerrain(0,0) + 10),0), pointLightIntensity);
-        PointLight pointLight = new PointLight(pointLightColor, new Vector3f(entity1.getPos().x, entity1.getPos().y, entity1.getPos().z), pointLightIntensity);
+        PointLight pointLight = new PointLight(pointLightColor, new Vector3f(entity1.getPos().x, entity1.getPos().y + 18, entity1.getPos().z), pointLightIntensity);
         playerLight = new PointLight(pointLightColor, new Vector3f(player.getPos().x, entity1.getPos().y + 2, entity1.getPos().z), pointLightIntensity);
+        playerLight.setIntensity(0f);
+
 
         lightGizmo = new Entity(gizmo, pointLight.getPosition(), new Vector3f().zero(), .5f);
         sceneManager.addEntity(lightGizmo);
+
+
 
         float lightIntensity = 0.0f;
 
@@ -279,6 +291,12 @@ public class TestGame implements ILogic {
         System.out.println(player.positionToString());
 
         lightGizmo.setPos(sceneManager.getPointLight(0).getPosition());
+
+        lightGizmo.setPos(sceneManager.getPointLight(0).getPosition().x,
+                sceneManager.getPointLight(0).getPosition().y,
+                sceneManager.getPointLight(0).getPosition().z);
+
+        lightGizmo.incRotation(0, 0.25f, 0.1f );
         playerLight.setPosition(player.getPos());
 
 
@@ -288,6 +306,10 @@ public class TestGame implements ILogic {
 
         for(Terrain terrain : sceneManager.getTerrains()){
             renderer.processTerrain(terrain);
+        }
+
+        for(GuiTexture gui : sceneManager.getGuis()){
+            renderer.processGuis(gui);
         }
 
         mouseInput.endFrame();

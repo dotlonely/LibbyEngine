@@ -126,4 +126,8 @@ public class Player extends Entity implements ILogic{
         return ("(" + xPos + ", " + zPos + ")");
     }
 
+    public float getCurrentSpeed(){
+        return currentSpeed;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.deadlist.core.entity;
 
 import com.deadlist.core.entity.terrain.Terrain;
+import com.deadlist.core.guis.GuiTexture;
 import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
@@ -14,6 +15,7 @@ public class SceneManager {
 
     private List<Entity> entities;
     private List<Terrain> terrains;
+    private List<GuiTexture> guis;
 
     private Vector3f ambientLight;
     private SpotLight[] spotLights;
@@ -27,6 +29,7 @@ public class SceneManager {
     public SceneManager(float lightAngle){
         entities = new ArrayList<>();
         terrains = new ArrayList<>();
+        guis = new ArrayList<>();
         ambientLight = Consts.AMBIENT_LIGHT;
 
         this.lightAngle = lightAngle;
@@ -54,6 +57,18 @@ public class SceneManager {
 
     public void setTerrains(List<Terrain> terrains) {
         this.terrains = terrains;
+    }
+
+    public List<GuiTexture> getGuis(){
+        return guis;
+    }
+
+    public void addGui(GuiTexture gui){
+        this.guis.add(gui);
+    }
+
+    public void setGuis(List<GuiTexture> guis){
+        this.guis = guis;
     }
 
     public Vector3f getAmbientLight() {
