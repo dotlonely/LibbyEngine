@@ -3,8 +3,8 @@ package com.deadlist.core.entity;
 import com.deadlist.core.EngineManager;
 import com.deadlist.core.ILogic;
 import com.deadlist.core.MouseInput;
-import com.deadlist.core.WindowManager;
 import com.deadlist.core.entity.terrain.Terrain;
+import com.deadlist.test.Launcher;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
@@ -28,8 +28,8 @@ public class Player extends Entity implements ILogic{
         super(model, pos, rotation, scale);
     }
 
-    public void move(WindowManager window){
-        checkInputs(window);
+    public void move(){
+        checkInputs();
         super.incRotation(0f, currentTurnSpeed * EngineManager.getDeltaTime(), 0f);
         float distance = currentSpeed * EngineManager.getDeltaTime();
         float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotation().y)));
@@ -55,23 +55,23 @@ public class Player extends Entity implements ILogic{
         useJump();
     }
 
-    private void checkInputs(WindowManager window){
+    private void checkInputs(){
 
-        if(window.isKeyPressed(GLFW.GLFW_KEY_W)){
+        if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_W)){
             this.currentSpeed = MOVE_SPEED;
-        } else if(window.isKeyPressed(GLFW.GLFW_KEY_S)){
+        } else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_S)){
             this.currentSpeed = -MOVE_SPEED;
         } else this.currentSpeed = 0;
 
-        if(window.isKeyPressed(GLFW.GLFW_KEY_D)){
+        if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_D)){
             this.currentTurnSpeed = -TURN_SPEED;
         }
-        else if(window.isKeyPressed(GLFW.GLFW_KEY_A)){
+        else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_A)){
             this.currentTurnSpeed = TURN_SPEED;
         }
         else this.currentTurnSpeed = 0;
 
-        if(window.isKeyPressed((GLFW.GLFW_KEY_SPACE)) && isCanJump()){
+        if(Launcher.getWindow().isKeyPressed((GLFW.GLFW_KEY_SPACE)) && isCanJump()){
             jump();
         }
 
@@ -97,8 +97,8 @@ public class Player extends Entity implements ILogic{
 
 
     @Override
-    public void input(WindowManager window, MouseInput mouseInput){
-        move(window);
+    public void input(MouseInput mouseInput){
+        move();
     }
 
     @Override

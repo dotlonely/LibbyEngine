@@ -10,6 +10,7 @@ import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
+import com.deadlist.core.utils.MousePicker;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -31,6 +32,8 @@ public class TestGame implements ILogic {
     private Entity lightGizmo;
     private PointLight playerLight;
 
+    private MousePicker picker;
+
 
     //TODO: Figure out why player is colliding with something at position x,z -255 and x,z 255
     // Now its not just at 255 sometimes you can go further and get stuck at different points
@@ -48,6 +51,8 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderer.init();
+
+        picker = new MousePicker(camera, Launcher.getWindow().getProjectionMatrix());
 
         //camera.setPosition(0, 10, 5);
         GuiTexture catGuiTwo = new GuiTexture(loader.loadTexture("textures/nasa.png"), loader, new Vector2f(0.75f, 0.75f), new Vector2f(0.1f, 0.1f));
@@ -189,7 +194,7 @@ public class TestGame implements ILogic {
     }
 
     @Override
-    public void input(WindowManager window, MouseInput mouseInput) {
+    public void input(MouseInput mouseInput) {
 
 //        cameraInc.set(0,0,0);
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_W)){
@@ -205,8 +210,7 @@ public class TestGame implements ILogic {
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_D)){
 //            cameraInc.x = 1;
 //        }
-
-        player.move(window);
+        player.move();
         camera.movePlayerCamera(mouseInput);
 
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
@@ -287,7 +291,13 @@ public class TestGame implements ILogic {
     @Override
     public void update(MouseInput mouseInput) {
 
-        System.out.println(player.positionToString());
+        picker.update(mouseInput);
+
+        //System.out.println(player.positionToString());
+
+        System.out.println(picker.getCurrentRay().x+ " " + picker.getCurrentRay().y + " " + picker.getCurrentRay().z);
+
+        //System.out.println(mouseInput.getPosX() + " , " + mouseInput.getPosY());
 
         lightGizmo.setPos(sceneManager.getPointLight(0).getPosition());
 

@@ -4,7 +4,6 @@ import com.deadlist.core.Camera;
 import com.deadlist.core.ShaderManager;
 import com.deadlist.core.WindowManager;
 import com.deadlist.core.entity.Entity;
-import com.deadlist.core.entity.Model;
 import com.deadlist.core.entity.SceneManager;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.guis.GuiTexture;

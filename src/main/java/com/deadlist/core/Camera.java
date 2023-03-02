@@ -8,7 +8,7 @@ public class Camera {
     private float distanceFromPlayer = 50;
     private float angleAroundPlayer = 0;
     private float pitch = 20;
-    private float yaw;
+    private float yaw = 0;
 
     private Vector3f position;
     private Vector3f rotation;
@@ -31,14 +31,14 @@ public class Camera {
     private float calculateHorizonalDistance(){
         return (float) (distanceFromPlayer * Math.cos(Math.toRadians(pitch)));
     }
-
     private float calculateVerticalDistance(){
         return (float) (distanceFromPlayer * Math.sin(Math.toRadians(pitch)));
     }
+
     public void movePlayerCamera(MouseInput mouseInput){
+        calculateAngleAroundPlayer(mouseInput);
         calculateZoom(mouseInput);
         calculatePitch(mouseInput);
-        calculateAngleAroundPlayer(mouseInput);
 
         float horizontalDistance = calculateHorizonalDistance();
         float verticalDistance = calculateVerticalDistance();
@@ -115,8 +115,8 @@ public class Camera {
 
     private void calculatePitch(MouseInput mouseInput){
         if(mouseInput.isLeftButtonPress()){
-            float changePitch = mouseInput.getDisplVec().x * 0.1f;
-            pitch -= changePitch;
+            float pitchChange = mouseInput.getDisplVec().x * 0.1f;
+            pitch -= pitchChange;
             if(pitch < 1){
                 pitch = 1;
             }

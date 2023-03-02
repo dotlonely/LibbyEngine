@@ -93,4 +93,12 @@ public class MouseInput {
         return inWindow;
     }
 
+    public float getPosX(){
+        return (float) currentPos.x;
+    }
+
+    public float getPosY(){
+        return (float) currentPos.y;
+    }
+
 }

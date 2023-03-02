@@ -11,7 +11,6 @@ public interface IRenderer <T> {
 
     public void init() throws Exception;
 
-    //public void renderer(Camera camera, PointLight[] pointLights, SpotLight[] spotLights, DirectionalLight directionalLight);
     public void renderer(Camera camera, SceneManager sceneManager);
 
     abstract void bind(Model model);
