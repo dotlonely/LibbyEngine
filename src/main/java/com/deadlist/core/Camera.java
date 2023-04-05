@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 
 public class Camera {
 
-    private float distanceFromPlayer = 50;
+    private float distanceFromPlayer = 10;
     private float angleAroundPlayer = 0;
     private float pitch = 20;
     private float yaw = 0;
@@ -13,16 +13,22 @@ public class Camera {
     private Vector3f position;
     private Vector3f rotation;
 
+    private Vector3f eyeHeight;
+    private float eyeHeightOffset = 1f;
+
     private Player player;
 
     public Camera(Player player){
         this.player = player;
+        //eyeHeight = new Vector3f(player.getPos().x,player.getPos().y + eyeHeightOffset, player.getPos().z);
+        //position = eyeHeight;
         position = new Vector3f(0,0,0);
         rotation = new Vector3f(0,0,0);
     }
 
     public Camera(Player player, Vector3f position, Vector3f rotation){
         this.player = player;
+        //eyeHeight = new Vector3f(player.getPos().x,player.getPos().y + eyeHeightOffset, player.getPos().z);
         this.position = position;
         this.rotation = rotation;
     }
@@ -37,8 +43,8 @@ public class Camera {
 
     public void movePlayerCamera(MouseInput mouseInput){
         calculateAngleAroundPlayer(mouseInput);
-        calculateZoom(mouseInput);
-        calculatePitch(mouseInput);
+        //calculateZoom(mouseInput);
+        //calculatePitch(mouseInput);
 
         float horizontalDistance = calculateHorizonalDistance();
         float verticalDistance = calculateVerticalDistance();
@@ -114,23 +120,23 @@ public class Camera {
     }
 
     private void calculatePitch(MouseInput mouseInput){
-        if(mouseInput.isLeftButtonPress()){
+        //if(mouseInput.isLeftButtonPress()){
             float pitchChange = mouseInput.getDisplVec().x * 0.1f;
             pitch -= pitchChange;
-            if(pitch < 1){
-                pitch = 1;
+            if(pitch < -90){
+                pitch = -90;
             }
             else if (pitch > 90){
                 pitch = 90;
             }
-        }
+       // }
     }
 
     private void calculateAngleAroundPlayer(MouseInput mouseInput){
-        if(mouseInput.isRightButtonPress()){
+       // if(mouseInput.isRightButtonPress()){
             float angleChange = mouseInput.getDisplVec().y * 0.3f;
             angleAroundPlayer -= angleChange;
-        }
+        //}
     }
 
     public float getDistanceFromPlayer(){

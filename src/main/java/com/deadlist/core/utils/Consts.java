@@ -23,5 +23,5 @@ public class Consts {
 
     public static final float SPECULAR_POWER = 10f;
     public static final Vector4f DEFAULT_COLOR = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
-    public static final Vector3f AMBIENT_LIGHT = new Vector3f(0f, 0f, 0f);
+    public static final Vector3f AMBIENT_LIGHT = new Vector3f(.5f, .5f, .5f);
 }

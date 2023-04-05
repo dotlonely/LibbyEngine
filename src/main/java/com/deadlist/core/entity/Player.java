@@ -15,7 +15,8 @@ public class Player extends Entity implements ILogic{
     private static final float GRAVITY = -75;
     private static final float JUMP_FORCE = 30;
 
-    private float currentSpeed = 0;
+    private float currentSpeedX = 0;
+    private float currentSpeedZ = 0;
     private float currentTurnSpeed = 0;
     private float verticalSpeed = 0;
 
@@ -30,12 +31,14 @@ public class Player extends Entity implements ILogic{
 
     public void move(){
         checkInputs();
-        super.incRotation(0f, currentTurnSpeed * EngineManager.getDeltaTime(), 0f);
-        float distance = currentSpeed * EngineManager.getDeltaTime();
-        float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotation().y)));
-        float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotation().y)));
+        //super.incRotation(0f, currentTurnSpeed * EngineManager.getDeltaTime(), 0f);
+        float distanceX = currentSpeedX * EngineManager.getDeltaTime();
+        float distanceZ = currentSpeedZ * EngineManager.getDeltaTime();
+        //float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotation().x)));
+        float dz = (float) (distanceX * Math.cos(Math.toRadians(super.getRotation().x)));
+        float dx = (float) (distanceX * Math.sin(Math.toRadians(super.getRotation().z)));
         verticalSpeed += GRAVITY * EngineManager.getDeltaTime();
-        super.incPos(dx, verticalSpeed * EngineManager.getDeltaTime(), dz);
+        super.incPos(distanceX, verticalSpeed * EngineManager.getDeltaTime(), distanceZ);
         float terrainHeight = terrain.getHeightOfTerrain(super.getPos().x, super.getPos().z);
 
         if(super.getPos().y < terrainHeight){
@@ -58,18 +61,27 @@ public class Player extends Entity implements ILogic{
     private void checkInputs(){
 
         if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_W)){
-            this.currentSpeed = MOVE_SPEED;
+            this.currentSpeedZ = -MOVE_SPEED;
         } else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_S)){
-            this.currentSpeed = -MOVE_SPEED;
-        } else this.currentSpeed = 0;
+            this.currentSpeedZ = MOVE_SPEED;
+        } else this.currentSpeedZ = 0;
+
+//        if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_D)){
+//            this.currentTurnSpeed = -TURN_SPEED;
+//        }
+//        else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_A)){
+//            this.currentTurnSpeed = TURN_SPEED;
+//        }
+//        else this.currentTurnSpeed = 0;
+
+
 
         if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_D)){
-            this.currentTurnSpeed = -TURN_SPEED;
+            this.currentSpeedX = MOVE_SPEED;
         }
         else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_A)){
-            this.currentTurnSpeed = TURN_SPEED;
-        }
-        else this.currentTurnSpeed = 0;
+            this.currentSpeedX = -MOVE_SPEED;
+        } else this.currentSpeedX = 0;
 
         if(Launcher.getWindow().isKeyPressed((GLFW.GLFW_KEY_SPACE)) && isCanJump()){
             jump();
@@ -126,8 +138,9 @@ public class Player extends Entity implements ILogic{
         return ("(" + xPos + ", " + zPos + ")");
     }
 
-    public float getCurrentSpeed(){
-        return currentSpeed;
+    public float getCurrentSpeedX(){
+        return currentSpeedX;
     }
+    public float getCurrentSpeedZ() { return currentSpeedZ; }
 
 }
