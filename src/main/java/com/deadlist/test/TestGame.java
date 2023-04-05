@@ -34,6 +34,8 @@ public class TestGame implements ILogic {
 
     private MousePicker picker;
 
+    private boolean lockMouse = false;
+
 
     //TODO: Figure out why player is colliding with something at position x,z -255 and x,z 255
     // Now its not just at 255 sometimes you can go further and get stuck at different points
@@ -51,6 +53,9 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderer.init();
+
+//        //Locks mouse to center of window
+//        window.lockMouseToWindow(true);
 
         picker = new MousePicker(camera, Launcher.getWindow().getProjectionMatrix());
 
@@ -210,6 +215,21 @@ public class TestGame implements ILogic {
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_D)){
 //            cameraInc.x = 1;
 //        }
+
+        if(window.isKeyReleased(GLFW.GLFW_KEY_TAB)){
+            if(!lockMouse) {
+                window.lockMouseToWindow(true);
+                lockMouse = true;
+            }
+        }
+        if(window.isKeyPressed(GLFW.GLFW_KEY_TAB)){
+            if(lockMouse){
+                window.lockMouseToWindow(false);
+                lockMouse = false;
+            }
+        }
+
+
         player.move();
         camera.movePlayerCamera(mouseInput);
 

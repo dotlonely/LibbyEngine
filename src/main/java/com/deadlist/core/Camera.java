@@ -7,8 +7,12 @@ public class Camera {
 
     private float distanceFromPlayer = 10;
     private float angleAroundPlayer = 0;
+    private float angleAbovePlayer = 0;
     private float pitch = 20;
     private float yaw = 0;
+
+    private float maxRotationX = 90;
+    private float minRotationX = -90;
 
     private Vector3f position;
     private Vector3f rotation;
@@ -20,15 +24,12 @@ public class Camera {
 
     public Camera(Player player){
         this.player = player;
-        //eyeHeight = new Vector3f(player.getPos().x,player.getPos().y + eyeHeightOffset, player.getPos().z);
-        //position = eyeHeight;
         position = new Vector3f(0,0,0);
         rotation = new Vector3f(0,0,0);
     }
 
     public Camera(Player player, Vector3f position, Vector3f rotation){
         this.player = player;
-        //eyeHeight = new Vector3f(player.getPos().x,player.getPos().y + eyeHeightOffset, player.getPos().z);
         this.position = position;
         this.rotation = rotation;
     }
@@ -43,11 +44,12 @@ public class Camera {
 
     public void movePlayerCamera(MouseInput mouseInput){
         calculateAngleAroundPlayer(mouseInput);
+        calculateAngleAbovePlayer(mouseInput);
         //calculateZoom(mouseInput);
         //calculatePitch(mouseInput);
 
-        float horizontalDistance = calculateHorizonalDistance();
-        float verticalDistance = calculateVerticalDistance();
+        float horizontalDistance = 0; //calculateHorizonalDistance();
+        float verticalDistance = 5; //calculateVerticalDistance();
 
         calculateCameraPosition(horizontalDistance, verticalDistance);
 
@@ -55,16 +57,19 @@ public class Camera {
 
     private void calculateCameraPosition(float horizontalDistance, float verticalDistance){
         float theta = angleAroundPlayer + player.getRotation().y;
+        float theta2 = angleAbovePlayer + player.getRotation().x;
         float xOffset = (float) (horizontalDistance * Math.sin(Math.toRadians(theta)));
         float zOffset = (float) (horizontalDistance * Math.cos(Math.toRadians(theta)));
 
         yaw = 180 - theta;
+        pitch = theta2;
 
         position.x = player.getPos().x - xOffset;
         position.z = player.getPos().z - zOffset;
         position.y = player.getPos().y + verticalDistance;
 
         rotation.y = yaw;
+        rotation.x = pitch;
 
     }
 
@@ -132,11 +137,28 @@ public class Camera {
        // }
     }
 
+    //Allows player to look left and right
     private void calculateAngleAroundPlayer(MouseInput mouseInput){
        // if(mouseInput.isRightButtonPress()){
             float angleChange = mouseInput.getDisplVec().y * 0.3f;
             angleAroundPlayer -= angleChange;
         //}
+    }
+
+    //Allows player to look up and down
+    private void calculateAngleAbovePlayer(MouseInput mouseInput){
+        float angleChange = mouseInput.getDisplVec().x * 0.3f;
+
+        //Locks player camera between 90 and -90 degrees
+        if(angleAbovePlayer > maxRotationX){
+            angleAbovePlayer = 90;
+        }
+        else if(angleAbovePlayer < minRotationX){
+            angleAbovePlayer = -90;
+        }
+        else{
+            angleAbovePlayer += angleChange;
+        }
     }
 
     public float getDistanceFromPlayer(){

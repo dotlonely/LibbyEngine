@@ -148,6 +148,10 @@ public class WindowManager {
     }
 
 
+    public void lockMouseToWindow(boolean lock){
+        GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, lock ? GLFW.GLFW_CURSOR_DISABLED : GLFW.GLFW_CURSOR_NORMAL);
+    }
+
     public boolean windowShouldClose(){
         return GLFW.glfwWindowShouldClose(window);
     }
