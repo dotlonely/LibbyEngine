@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added currentSpeedX and currentSpeedZ to allow for strafing left and right">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Camera can look up and down and left and right, and is now locked vertically">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -314,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677721059329</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Camera can look up and down and left and right, and is now locked vertically">
+      <created>1680726611066</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1680726611066</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -332,7 +339,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added mouse input, adjusted Consts variables" />
     <MESSAGE value="Added object loader and ambient light support" />
     <MESSAGE value="Added cube obj file" />
     <MESSAGE value="Added directional light support and extra models" />
@@ -357,7 +363,8 @@
     <MESSAGE value="Messing with lights" />
     <MESSAGE value="Added gui renderer" />
     <MESSAGE value="Added mouse picking, no other implementations with it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added mouse picking, no other implementations with it" />
+    <MESSAGE value="Camera can look up and down and left and right, and is now locked vertically" />
+    <option name="LAST_COMMIT_MESSAGE" value="Camera can look up and down and left and right, and is now locked vertically" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

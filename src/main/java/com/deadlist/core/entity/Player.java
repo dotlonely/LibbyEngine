@@ -1,23 +1,23 @@
 package com.deadlist.core.entity;
 
+import com.deadlist.core.Camera;
 import com.deadlist.core.EngineManager;
 import com.deadlist.core.ILogic;
 import com.deadlist.core.MouseInput;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.test.Launcher;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 public class Player extends Entity implements ILogic{
 
     private static final float MOVE_SPEED = 30;
-    private static final float TURN_SPEED = 160;
     private static final float GRAVITY = -75;
     private static final float JUMP_FORCE = 30;
 
     private float currentSpeedX = 0;
     private float currentSpeedZ = 0;
-    private float currentTurnSpeed = 0;
     private float verticalSpeed = 0;
 
     private int maxJumps = 1;
@@ -29,16 +29,27 @@ public class Player extends Entity implements ILogic{
         super(model, pos, rotation, scale);
     }
 
-    public void move(){
+    public void move(MouseInput mouseInput){
         checkInputs();
-        //super.incRotation(0f, currentTurnSpeed * EngineManager.getDeltaTime(), 0f);
-        float distanceX = currentSpeedX * EngineManager.getDeltaTime();
-        float distanceZ = currentSpeedZ * EngineManager.getDeltaTime();
-        //float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotation().x)));
-        float dz = (float) (distanceX * Math.cos(Math.toRadians(super.getRotation().x)));
-        float dx = (float) (distanceX * Math.sin(Math.toRadians(super.getRotation().z)));
+
+        //Sets rotation of player based on mouse movement
+        calculateAngleAroundPlayer(mouseInput);
+
+        float sideDistance = currentSpeedX * EngineManager.getDeltaTime();
+        float forwardDistance = currentSpeedZ * EngineManager.getDeltaTime();
+
+        //Calculates change in forward distance
+        float dxForward = (float) (forwardDistance * Math.sin(Math.toRadians(super.getRotation().y)));
+        float dzForward = (float) (forwardDistance * Math.cos(Math.toRadians(super.getRotation().y)));
+
+        //Calculate change in side distance (strafing)
+        float dxSide = (float) (sideDistance * Math.sin(Math.toRadians(90 + super.getRotation().y)));
+        float dzSide = (float) (sideDistance * Math.cos(Math.toRadians(90 + super.getRotation().y)));
+
         verticalSpeed += GRAVITY * EngineManager.getDeltaTime();
-        super.incPos(distanceX, verticalSpeed * EngineManager.getDeltaTime(), distanceZ);
+
+        super.incPos(dxForward, verticalSpeed * EngineManager.getDeltaTime(), dzForward);
+        super.incPos(dxSide, 0f, dzSide);
         float terrainHeight = terrain.getHeightOfTerrain(super.getPos().x, super.getPos().z);
 
         if(super.getPos().y < terrainHeight){
@@ -51,7 +62,6 @@ public class Player extends Entity implements ILogic{
     public void setTerrain(Terrain terrain){
        this.terrain = terrain;
     }
-
 
     private void jump(){
         this.verticalSpeed = JUMP_FORCE;
@@ -66,16 +76,6 @@ public class Player extends Entity implements ILogic{
             this.currentSpeedZ = MOVE_SPEED;
         } else this.currentSpeedZ = 0;
 
-//        if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_D)){
-//            this.currentTurnSpeed = -TURN_SPEED;
-//        }
-//        else if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_A)){
-//            this.currentTurnSpeed = TURN_SPEED;
-//        }
-//        else this.currentTurnSpeed = 0;
-
-
-
         if(Launcher.getWindow().isKeyPressed(GLFW.GLFW_KEY_D)){
             this.currentSpeedX = MOVE_SPEED;
         }
@@ -87,6 +87,13 @@ public class Player extends Entity implements ILogic{
             jump();
         }
 
+    }
+
+    private void calculateAngleAroundPlayer(MouseInput mouseInput){
+//        float angleChange = mouseInput.getDisplVec().y * 0.3f;
+//        angleAroundPlayer -= angleChange;
+        getRotation().y -= mouseInput.getDisplVec().y * 0.3;
+        getRotation().y %= 360;
     }
 
 
@@ -110,7 +117,7 @@ public class Player extends Entity implements ILogic{
 
     @Override
     public void input(MouseInput mouseInput){
-        move();
+        move(mouseInput);
     }
 
     @Override

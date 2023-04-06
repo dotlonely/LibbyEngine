@@ -17,9 +17,6 @@ public class Camera {
     private Vector3f position;
     private Vector3f rotation;
 
-    private Vector3f eyeHeight;
-    private float eyeHeightOffset = 1f;
-
     private Player player;
 
     public Camera(Player player){
@@ -45,11 +42,9 @@ public class Camera {
     public void movePlayerCamera(MouseInput mouseInput){
         calculateAngleAroundPlayer(mouseInput);
         calculateAngleAbovePlayer(mouseInput);
-        //calculateZoom(mouseInput);
-        //calculatePitch(mouseInput);
 
-        float horizontalDistance = 0; //calculateHorizonalDistance();
-        float verticalDistance = 5; //calculateVerticalDistance();
+        float horizontalDistance = 0;
+        float verticalDistance = 1;
 
         calculateCameraPosition(horizontalDistance, verticalDistance);
 
@@ -58,17 +53,16 @@ public class Camera {
     private void calculateCameraPosition(float horizontalDistance, float verticalDistance){
         float theta = angleAroundPlayer + player.getRotation().y;
         float theta2 = angleAbovePlayer + player.getRotation().x;
-        float xOffset = (float) (horizontalDistance * Math.sin(Math.toRadians(theta)));
-        float zOffset = (float) (horizontalDistance * Math.cos(Math.toRadians(theta)));
 
         yaw = 180 - theta;
         pitch = theta2;
 
-        position.x = player.getPos().x - xOffset;
-        position.z = player.getPos().z - zOffset;
+        position.x = player.getPos().x;
+        position.z = player.getPos().z;
         position.y = player.getPos().y + verticalDistance;
 
-        rotation.y = yaw;
+
+        rotation.y = -player.getRotation().y;
         rotation.x = pitch;
 
     }
@@ -124,25 +118,10 @@ public class Camera {
         }
     }
 
-    private void calculatePitch(MouseInput mouseInput){
-        //if(mouseInput.isLeftButtonPress()){
-            float pitchChange = mouseInput.getDisplVec().x * 0.1f;
-            pitch -= pitchChange;
-            if(pitch < -90){
-                pitch = -90;
-            }
-            else if (pitch > 90){
-                pitch = 90;
-            }
-       // }
-    }
-
     //Allows player to look left and right
     private void calculateAngleAroundPlayer(MouseInput mouseInput){
-       // if(mouseInput.isRightButtonPress()){
             float angleChange = mouseInput.getDisplVec().y * 0.3f;
             angleAroundPlayer -= angleChange;
-        //}
     }
 
     //Allows player to look up and down

@@ -230,7 +230,7 @@ public class TestGame implements ILogic {
         }
 
 
-        player.move();
+        player.move(mouseInput);
         camera.movePlayerCamera(mouseInput);
 
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
@@ -312,6 +312,7 @@ public class TestGame implements ILogic {
     public void update(MouseInput mouseInput) {
 
         picker.update(mouseInput);
+        player.update(mouseInput);
 
         //System.out.println(player.positionToString());
 
