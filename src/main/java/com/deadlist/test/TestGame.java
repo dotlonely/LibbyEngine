@@ -85,7 +85,7 @@ public class TestGame implements ILogic {
         Model playerModel = loader.loadObjModel("/models/cube.obj");
         playerModel.setTexture(new Texture(loader.loadTexture("textures/babyblue.png")), 1f);
 
-        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 1f);
+        player = new Player(playerModel, new Vector3f(0, 0, -10), new Vector3f(0f, 180f, 0f), 1.5f);
         sceneManager.addEntity(player);
 
         camera = new Camera(player);
@@ -316,7 +316,9 @@ public class TestGame implements ILogic {
 
         //System.out.println(player.positionToString());
 
-        System.out.println(picker.getCurrentRay().x+ " " + picker.getCurrentRay().y + " " + picker.getCurrentRay().z);
+        //System.out.println(picker.getCurrentRay().x+ " " + picker.getCurrentRay().y + " " + picker.getCurrentRay().z);
+        System.out.println("X: " + player.getRollAngleX() + "  ,  Z: " + player.getRollAngleZ());
+
 
         //System.out.println(mouseInput.getPosX() + " , " + mouseInput.getPosY());
 

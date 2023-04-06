@@ -1,12 +1,10 @@
 package com.deadlist.core.entity;
 
-import com.deadlist.core.Camera;
 import com.deadlist.core.EngineManager;
 import com.deadlist.core.ILogic;
 import com.deadlist.core.MouseInput;
 import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.test.Launcher;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
@@ -20,6 +18,8 @@ public class Player extends Entity implements ILogic{
     private float currentSpeedZ = 0;
     private float verticalSpeed = 0;
 
+    private float rollAngleX;
+    private float rollAngleZ;
     private int maxJumps = 1;
     private int numJumps;
 
@@ -34,6 +34,11 @@ public class Player extends Entity implements ILogic{
 
         //Sets rotation of player based on mouse movement
         calculateAngleAroundPlayer(mouseInput);
+
+        //calculates roll angle based on rotation for camera class
+        calculateRollAngleX();
+        calculateRollAngleZ();
+
 
         float sideDistance = currentSpeedX * EngineManager.getDeltaTime();
         float forwardDistance = currentSpeedZ * EngineManager.getDeltaTime();
@@ -50,6 +55,34 @@ public class Player extends Entity implements ILogic{
 
         super.incPos(dxForward, verticalSpeed * EngineManager.getDeltaTime(), dzForward);
         super.incPos(dxSide, 0f, dzSide);
+
+        if(getCurrentSpeedX() > 0 ){
+            if(getRollAngleX() > .25 || getRollAngleX() < -.25){
+                    setRotation(0f, getRotation().y, getRollAngleX());
+            }
+            else if(getRollAngleX() < .25 && getRollAngleX() > -.25){
+                    setRotation(0f, getRotation().y, getRollAngleZ());
+            }
+        }
+        else if(getCurrentSpeedX() < 0) {
+            if(getRollAngleX() > .25 || getRollAngleX() < -.25){
+                setRotation(0f, getRotation().y, -getRollAngleX());
+            }
+            else if(getRollAngleX() < .25 && getRollAngleX() > -.25){
+                setRotation(0f, getRotation().y, -getRollAngleZ());
+            }
+        }
+        else {
+//            if(roll > 0){
+//                roll--;
+//            }
+//            else if (roll < 0){
+//                roll++;
+//            }
+            setRotation(0f, getRotation().y, 0f);
+        }
+
+
         float terrainHeight = terrain.getHeightOfTerrain(super.getPos().x, super.getPos().z);
 
         if(super.getPos().y < terrainHeight){
@@ -90,8 +123,6 @@ public class Player extends Entity implements ILogic{
     }
 
     private void calculateAngleAroundPlayer(MouseInput mouseInput){
-//        float angleChange = mouseInput.getDisplVec().y * 0.3f;
-//        angleAroundPlayer -= angleChange;
         getRotation().y -= mouseInput.getDisplVec().y * 0.3;
         getRotation().y %= 360;
     }
@@ -134,6 +165,15 @@ public class Player extends Entity implements ILogic{
 
     }
 
+    private void calculateRollAngleX(){
+        rollAngleX = (float) Math.sin(Math.toRadians(90 + super.getRotation().y));
+    }
+
+    private void calculateRollAngleZ(){
+        rollAngleZ = (float) Math.cos(Math.toRadians(90 + super.getRotation().y));
+    }
+
+
     public int getNumJumps(){
         return numJumps;
     }
@@ -149,5 +189,13 @@ public class Player extends Entity implements ILogic{
         return currentSpeedX;
     }
     public float getCurrentSpeedZ() { return currentSpeedZ; }
+
+    public float getRollAngleX(){
+        return rollAngleX;
+    }
+
+    public float getRollAngleZ(){
+        return rollAngleZ;
+    }
 
 }

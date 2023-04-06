@@ -10,6 +10,9 @@ public class Camera {
     private float angleAbovePlayer = 0;
     private float pitch = 20;
     private float yaw = 0;
+    private float roll = 0;
+
+    private float rollThreshold = 2;
 
     private float maxRotationX = 90;
     private float minRotationX = -90;
@@ -44,7 +47,7 @@ public class Camera {
         calculateAngleAbovePlayer(mouseInput);
 
         float horizontalDistance = 0;
-        float verticalDistance = 1;
+        float verticalDistance = 5;
 
         calculateCameraPosition(horizontalDistance, verticalDistance);
 
@@ -62,9 +65,10 @@ public class Camera {
         position.y = player.getPos().y + verticalDistance;
 
 
+        //calculateRoll();
         rotation.y = -player.getRotation().y;
         rotation.x = pitch;
-
+        rotation.z = player.getRotation().z;
     }
 
     public void movePosition(float x, float y, float z){
@@ -105,6 +109,29 @@ public class Camera {
 
     public Vector3f getRotation() {
         return rotation;
+    }
+
+    private void calculateRoll(){
+//        if(player.getCurrentSpeedX() > 0){
+//            if(roll < rollThreshold){
+//                roll = player.getRollAngle() * 2f;
+//            }
+//        }
+//        else if(player.getCurrentSpeedX() < 0) {
+//            if(roll > -rollThreshold){
+//                roll = -player.getRollAngle() * 2f;
+//            }
+//        }
+//        else {
+////            if(roll > 0){
+////                roll--;
+////            }
+////            else if (roll < 0){
+////                roll++;
+////            }
+//            roll = 0;
+//        }
+        rotation.z = player.getRotation().z;
     }
 
     private void calculateZoom(MouseInput mouseInput){
