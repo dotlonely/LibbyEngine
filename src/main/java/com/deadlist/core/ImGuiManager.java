@@ -28,7 +28,7 @@ public class ImGuiManager {
         ImGuiIO io = ImGui.getIO();
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
 
-        imGuiGlfw.init(window.getWindowHandle(), true);
+        imGuiGlfw.init(window.getWindowHandle(), false);
         imGuiGl3.init(glslVersion);
 
     }

@@ -11,7 +11,6 @@ import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
 import com.deadlist.core.utils.MousePicker;
-import imgui.app.Configuration;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -233,7 +232,8 @@ public class TestGame implements ILogic {
 
 
         player.move(mouseInput);
-        camera.movePlayerCamera(mouseInput);
+        if(lockMouse)
+            camera.movePlayerCamera(mouseInput);
 
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
 //            cameraInc.y = -1;
@@ -364,5 +364,17 @@ public class TestGame implements ILogic {
     public void cleanup() {
         renderer.cleanup();
         loader.cleanup();
+    }
+
+    public Vector3f getPlayerPosition(){
+        return player.getPos();
+    }
+
+    public String getPlayerPositionToString(){
+        return "Pos:" + "\nX: " + player.getPos().x + ", \nY: " + player.getPos().y + ", \nZ: " + player.getPos().z;
+    }
+
+    public String getPlayerRotationToString(){
+        return "Rot:" + "\nX: " + player.getRotation().x + ", \nY: " + player.getRotation().y + ", \nZ: " + player.getRotation().z;
     }
 }
