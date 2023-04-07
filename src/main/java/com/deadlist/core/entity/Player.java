@@ -56,31 +56,36 @@ public class Player extends Entity implements ILogic{
         super.incPos(dxForward, verticalSpeed * EngineManager.getDeltaTime(), dzForward);
         super.incPos(dxSide, 0f, dzSide);
 
-        if(getCurrentSpeedX() > 0 ){
-            if(getRollAngleX() > .25 || getRollAngleX() < -.25){
-                    setRotation(0f, getRotation().y, getRollAngleX());
-            }
-            else if(getRollAngleX() < .25 && getRollAngleX() > -.25){
-                    setRotation(0f, getRotation().y, getRollAngleZ());
-            }
-        }
-        else if(getCurrentSpeedX() < 0) {
-            if(getRollAngleX() > .25 || getRollAngleX() < -.25){
-                setRotation(0f, getRotation().y, -getRollAngleX());
-            }
-            else if(getRollAngleX() < .25 && getRollAngleX() > -.25){
-                setRotation(0f, getRotation().y, -getRollAngleZ());
-            }
-        }
-        else {
-//            if(roll > 0){
-//                roll--;
+        //TODO: Revisit camera roll later on
+
+//        if(getCurrentSpeedX() > 0 ){
+//            if(getRollAngleX() > .5 || getRollAngleX() < -.5){
+//                    //setRotation(0f, getRotation().y, getRollAngleX());
+//                if(getRotation().z < 5)
+//                    getRotation().z++;
 //            }
-//            else if (roll < 0){
-//                roll++;
+//            else if(getRollAngleZ() > .5 || getRollAngleZ() < -.5){
+//                    //setRotation(0f, getRotation().y, getRollAngleZ());
+//                if(getRotation().z < 5)
+//                    getRotation().z++;
 //            }
-            setRotation(0f, getRotation().y, 0f);
-        }
+//        }
+//        else if(getCurrentSpeedX() < 0) {
+//            if(getRollAngleX() > .5 || getRollAngleX() < -.5){
+//                //setRotation(0f, getRotation().y, -getRollAngleX());
+//                if(getRotation().z > -5)
+//                    getRotation().z--;
+//            }
+//            else if(getRollAngleZ() > .5 || getRollAngleZ() < -.5){
+//                //setRotation(0f, getRotation().y, -getRollAngleZ());
+//                if(getRotation().z > -5)
+//                    getRotation().z--;
+//            }
+//
+//        }
+//        else {
+//            setRotation(0f, getRotation().y, 0f);
+//        }
 
 
         float terrainHeight = terrain.getHeightOfTerrain(super.getPos().x, super.getPos().z);

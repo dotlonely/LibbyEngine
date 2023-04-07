@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="First person camera and player movement done, adjustable player height in camera">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Still trying to figure out camera roll">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -328,7 +329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680755639439</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Still trying to figure out camera roll">
+      <created>1680763036575</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1680763036575</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -346,7 +354,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added cube obj file" />
     <MESSAGE value="Added directional light support and extra models" />
     <MESSAGE value="Added point light" />
     <MESSAGE value="Added cel shading lol" />
@@ -371,7 +378,8 @@
     <MESSAGE value="Added mouse picking, no other implementations with it" />
     <MESSAGE value="Camera can look up and down and left and right, and is now locked vertically" />
     <MESSAGE value="First person camera and player movement done, adjustable player height in camera" />
-    <option name="LAST_COMMIT_MESSAGE" value="First person camera and player movement done, adjustable player height in camera" />
+    <MESSAGE value="Still trying to figure out camera roll" />
+    <option name="LAST_COMMIT_MESSAGE" value="Still trying to figure out camera roll" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -386,5 +394,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.joml.Vector3f" memberName="z" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

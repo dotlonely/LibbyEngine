@@ -47,7 +47,7 @@ public class Camera {
         calculateAngleAbovePlayer(mouseInput);
 
         float horizontalDistance = 0;
-        float verticalDistance = 5;
+        float verticalDistance = 4;
 
         calculateCameraPosition(horizontalDistance, verticalDistance);
 

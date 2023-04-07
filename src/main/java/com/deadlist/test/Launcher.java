@@ -8,7 +8,6 @@ public class Launcher {
     private static WindowManager window;
     private static TestGame game;
 
-
     public static void main(String[] args) {
         window = new WindowManager(Consts.TITLE, 1024, 768, false);
         game = new TestGame();

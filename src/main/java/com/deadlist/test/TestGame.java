@@ -317,7 +317,8 @@ public class TestGame implements ILogic {
         //System.out.println(player.positionToString());
 
         //System.out.println(picker.getCurrentRay().x+ " " + picker.getCurrentRay().y + " " + picker.getCurrentRay().z);
-        System.out.println("X: " + player.getRollAngleX() + "  ,  Z: " + player.getRollAngleZ());
+        //System.out.println("X: " + player.getRollAngleX() + "  ,  Z: " + player.getRollAngleZ());
+        System.out.println(player.getRotation().y);
 
 
         //System.out.println(mouseInput.getPosX() + " , " + mouseInput.getPosY());
