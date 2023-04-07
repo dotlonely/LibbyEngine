@@ -1,7 +1,6 @@
 package com.deadlist.core;
 
 import com.deadlist.core.utils.Consts;
-import com.deadlist.test.Launcher;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -135,6 +134,7 @@ public class WindowManager {
     public void cleanup(){
         GLFW.glfwDestroyWindow(window);
     }
+
 
     public void setClearColor(float r, float g, float b, float a){
        GL11.glClearColor(r, g, b, a);

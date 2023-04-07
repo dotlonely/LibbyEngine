@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Still trying to figure out camera roll">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Giving up on camera roll for the time being">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiLayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/EngineManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/WindowManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
@@ -336,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680763036575</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Giving up on camera roll for the time being">
+      <created>1680829519145</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1680829519145</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -354,7 +365,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added directional light support and extra models" />
     <MESSAGE value="Added point light" />
     <MESSAGE value="Added cel shading lol" />
     <MESSAGE value="Added spotlight" />
@@ -379,7 +389,8 @@
     <MESSAGE value="Camera can look up and down and left and right, and is now locked vertically" />
     <MESSAGE value="First person camera and player movement done, adjustable player height in camera" />
     <MESSAGE value="Still trying to figure out camera roll" />
-    <option name="LAST_COMMIT_MESSAGE" value="Still trying to figure out camera roll" />
+    <MESSAGE value="Giving up on camera roll for the time being" />
+    <option name="LAST_COMMIT_MESSAGE" value="Giving up on camera roll for the time being" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -399,5 +410,10 @@
         <PinnedItemInfo parentTag="org.joml.Vector3f" memberName="z" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="window" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

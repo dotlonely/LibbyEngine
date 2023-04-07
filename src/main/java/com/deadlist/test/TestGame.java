@@ -11,11 +11,14 @@ import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
 import com.deadlist.core.utils.MousePicker;
+import imgui.app.Configuration;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+
+
 
 import java.util.Random;
 
@@ -37,6 +40,7 @@ public class TestGame implements ILogic {
     private boolean lockMouse = false;
 
 
+
     //TODO: Figure out why player is colliding with something at position x,z -255 and x,z 255
     // Now its not just at 255 sometimes you can go further and get stuck at different points
 
@@ -50,21 +54,19 @@ public class TestGame implements ILogic {
         sceneManager = new SceneManager(-90);
     }
 
+
     @Override
     public void init() throws Exception {
         renderer.init();
 
-//        //Locks mouse to center of window
-//        window.lockMouseToWindow(true);
 
         picker = new MousePicker(camera, Launcher.getWindow().getProjectionMatrix());
 
-        //camera.setPosition(0, 10, 5);
         GuiTexture catGuiTwo = new GuiTexture(loader.loadTexture("textures/nasa.png"), loader, new Vector2f(0.75f, 0.75f), new Vector2f(0.1f, 0.1f));
-        sceneManager.addGui(catGuiTwo);
+        //sceneManager.addGui(catGuiTwo);
 
         GuiTexture catGui = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
-        sceneManager.addGui(catGui);
+        //sceneManager.addGui(catGui);
 
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/medGreen.png"));

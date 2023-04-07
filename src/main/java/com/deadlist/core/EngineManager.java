@@ -1,7 +1,5 @@
 package com.deadlist.core;
 
-import com.deadlist.core.entity.Player;
-import com.deadlist.core.entity.terrain.Terrain;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.test.Launcher;
 import org.lwjgl.glfw.GLFW;
@@ -19,6 +17,7 @@ public class EngineManager {
     private boolean isRunning;
 
     private WindowManager window;
+    private ImGuiManager imGui;
     private MouseInput mouseInput;
     private ILogic gameLogic;
     private GLFWErrorCallback errorCallback;
@@ -27,9 +26,11 @@ public class EngineManager {
     private void init() throws Exception{
         GLFW.glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
         window = Launcher.getWindow();
+        imGui = Launcher.getImGui();
         gameLogic = Launcher.getGame();
         mouseInput = new MouseInput();
         window.init();
+        imGui.init();
         gameLogic.init();
         mouseInput.init();
     }
@@ -101,7 +102,12 @@ public class EngineManager {
 
     private void render(){
         gameLogic.render();
-        window.update();
+
+        // Handling swapping buffers in the imGui update method.
+        // So we disable the window's update method.
+        //window.update();
+
+        imGui.update();
     }
 
     private void update(){
@@ -111,6 +117,7 @@ public class EngineManager {
     private void cleanup(){
         gameLogic.cleanup();
         window.cleanup();
+        imGui.cleanup();
         errorCallback.free();
         GLFW.glfwTerminate();
     }
