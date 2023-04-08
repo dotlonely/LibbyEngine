@@ -60,6 +60,7 @@ public class Camera {
         yaw = 180 - theta;
         pitch = theta2;
 
+
         position.x = player.getPos().x;
         position.z = player.getPos().z;
         position.y = player.getPos().y + verticalDistance;
@@ -148,8 +149,9 @@ public class Camera {
     //Allows player to look left and right
     private void calculateAngleAroundPlayer(MouseInput mouseInput){
             float angleChange = mouseInput.getDisplVec().y * 0.3f;
-            angleAroundPlayer -= angleChange;
+            angleAroundPlayer += angleChange;
     }
+
 
     //Allows player to look up and down
     private void calculateAngleAbovePlayer(MouseInput mouseInput){

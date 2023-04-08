@@ -57,7 +57,6 @@ public class Player extends Entity implements ILogic{
         super.incPos(dxSide, 0f, dzSide);
 
         //TODO: Revisit camera roll later on
-
 //        if(getCurrentSpeedX() > 0 ){
 //            if(getRollAngleX() > .5 || getRollAngleX() < -.5){
 //                    //setRotation(0f, getRotation().y, getRollAngleX());

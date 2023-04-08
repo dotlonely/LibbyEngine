@@ -10,6 +10,7 @@ import com.deadlist.core.lighting.DirectionalLight;
 import com.deadlist.core.lighting.PointLight;
 import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
+import com.deadlist.core.utils.Consts;
 import com.deadlist.core.utils.MousePicker;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -77,7 +78,9 @@ public class TestGame implements ILogic {
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("textures/blendMap.png"));
 
         terrain = new Terrain(new Vector3f(0f, -1f, -800f), loader,
-                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "perlin_noise");
+                new Material(new Vector4f(0.0f, 0.0f, 0.0f, 0.0f), 0.1f), texturePack, blendMap, "flat_map");
+
+        //"perlin_noise"
 
         sceneManager.addTerrain(terrain);
 
@@ -209,7 +212,7 @@ public class TestGame implements ILogic {
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_S)){
 //            cameraInc.z = 1;
 //        }
-
+//
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_A)){
 //            cameraInc.x = -1;
 //        }
@@ -217,6 +220,9 @@ public class TestGame implements ILogic {
 //            cameraInc.x = 1;
 //        }
 
+
+
+//
         if(window.isKeyReleased(GLFW.GLFW_KEY_TAB)){
             if(!lockMouse) {
                 window.lockMouseToWindow(true);
@@ -231,9 +237,11 @@ public class TestGame implements ILogic {
         }
 
 
-        player.move(mouseInput);
-        if(lockMouse)
+
+        if(lockMouse){
+            player.move(mouseInput);
             camera.movePlayerCamera(mouseInput);
+        }
 
 //        if(window.isKeyPressed(GLFW.GLFW_KEY_LEFT_CONTROL)){
 //            cameraInc.y = -1;
@@ -270,10 +278,10 @@ public class TestGame implements ILogic {
 //        }
 
 //
-//        if(mouseInput.isRightButtonPress()){
-//            Vector2f rotVec = mouseInput.getDisplVec();
-//            camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
-//        }
+        if(mouseInput.isRightButtonPress()){
+            Vector2f rotVec = mouseInput.getDisplVec();
+            camera.moveRotation(rotVec.x * Consts.MOUSE_SENS, rotVec.y * Consts.MOUSE_SENS, 0);
+        }
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_O)){
             sceneManager.getPointLight(0).incIntensity(-1 * EngineManager.getDeltaTime());
@@ -313,6 +321,7 @@ public class TestGame implements ILogic {
     @Override
     public void update(MouseInput mouseInput) {
 
+
         picker.update(mouseInput);
         player.update(mouseInput);
 
@@ -320,9 +329,7 @@ public class TestGame implements ILogic {
 
         //System.out.println(picker.getCurrentRay().x+ " " + picker.getCurrentRay().y + " " + picker.getCurrentRay().z);
         //System.out.println("X: " + player.getRollAngleX() + "  ,  Z: " + player.getRollAngleZ());
-        System.out.println(player.getRotation().y);
-
-
+        //System.out.println(player.getRotation().y);
         //System.out.println(mouseInput.getPosX() + " , " + mouseInput.getPosY());
 
         lightGizmo.setPos(sceneManager.getPointLight(0).getPosition());
@@ -370,11 +377,27 @@ public class TestGame implements ILogic {
         return player.getPos();
     }
 
+    public String getCameraPositionToString(){
+        return "Pos:" + "\nX: " + camera.getPosition().x + ", \nY: " + camera.getPosition().y + ", \nZ: " + camera.getPosition().z;
+    }
+
+    public String getCameraRotationToString(){
+        return "Rot:" + "\nX: " + camera.getRotation().x + ", \nY: " + camera.getRotation().y + ", \nZ: " + camera.getRotation().z;
+    }
+
     public String getPlayerPositionToString(){
         return "Pos:" + "\nX: " + player.getPos().x + ", \nY: " + player.getPos().y + ", \nZ: " + player.getPos().z;
     }
 
     public String getPlayerRotationToString(){
         return "Rot:" + "\nX: " + player.getRotation().x + ", \nY: " + player.getRotation().y + ", \nZ: " + player.getRotation().z;
+    }
+
+    public String getMousePickerPointToString(){
+        return "Pos: " + "\nX: " + picker.getCurrentRay().x + ", \nY: " + picker.getCurrentRay().y + ", \nZ: " + picker.getCurrentRay().z;
+    }
+
+    public String getNormalizedDeviceCoordsToString(){
+        return picker.getNormDevCoordsToString();
     }
 }

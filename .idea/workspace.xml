@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="ImGui functionality added, edit window and add windows through imGuiLayer and imGuiManager classes">
+    <list default="true" id="e33a1aa1-29a7-4f7f-900e-77482452aabb" name="Changes" comment="Added some debug items to imGui layer, player position and rotation specifically">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/ImGuiManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/MouseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/MouseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/MousePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/core/utils/MousePicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/deadlist/test/TestGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -350,7 +355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680888989186</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Added some debug items to imGui layer, player position and rotation specifically">
+      <created>1680894230033</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1680894230033</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -368,7 +380,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added cel shading lol" />
     <MESSAGE value="Added spotlight" />
     <MESSAGE value="Added support for multiple entities, starting on renderer redesign" />
     <MESSAGE value="Implemented entity renderer" />
@@ -393,7 +404,8 @@
     <MESSAGE value="Still trying to figure out camera roll" />
     <MESSAGE value="Giving up on camera roll for the time being" />
     <MESSAGE value="ImGui functionality added, edit window and add windows through imGuiLayer and imGuiManager classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="ImGui functionality added, edit window and add windows through imGuiLayer and imGuiManager classes" />
+    <MESSAGE value="Added some debug items to imGui layer, player position and rotation specifically" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added some debug items to imGui layer, player position and rotation specifically" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,6 +10,8 @@ public class MousePicker implements ILogic {
 
     private Vector3f currentRay;
 
+    private Vector2f normDevCoords;
+
     private Matrix4f projectionMatrix;
     private Matrix4f viewMatrix;
     private Camera camera;
@@ -24,10 +26,20 @@ public class MousePicker implements ILogic {
         return currentRay;
     }
 
-    private Vector3f calculateMouseRay(MouseInput mouseInput){
+
+    // Calculate mouse ray based on mouseInput, center lock determines if device coords should be 0,0. aka mouse is locked to center screen
+    private Vector3f calculateMouseRay(MouseInput mouseInput, boolean centerLock){
         float mouseX = mouseInput.getPosX();
         float mouseY = mouseInput.getPosY();
-        Vector2f normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
+        Vector2f normalizedCoords;
+
+        if(centerLock){
+            normalizedCoords = new Vector2f(0f,0f);
+            normDevCoords = normalizedCoords;
+        }
+        else
+            normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
+
         Vector4f clipCoords = new Vector4f(normalizedCoords.x, normalizedCoords.y, -1f, 1f);
         Vector4f eyeCoords = toEyeSpace(clipCoords);
         Vector3f worldRay = toWorldCoords(eyeCoords);
@@ -51,7 +63,15 @@ public class MousePicker implements ILogic {
     private Vector2f getNormalizedDeviceCoords(float mouseX, float mouseY){
         float x = (2.0f * mouseX) / Launcher.getWindow().getWidth() - 1f;
         float y = (2.0f * mouseY) / Launcher.getWindow().getHeight() - 1f;
+        normDevCoords = new Vector2f(x, y);
         return new Vector2f(x, y);
+    }
+
+    // Returns string of the normalized device coords for use in GUI interface
+    public String getNormDevCoordsToString(){
+        if(normDevCoords != null)
+            return "Normalized Device Coords: \nX:" + normDevCoords.x + "\nY: " + normDevCoords.y;
+        else return "NULL";
     }
 
 
@@ -68,7 +88,9 @@ public class MousePicker implements ILogic {
     @Override
     public void update(MouseInput mouseInput) {
         viewMatrix = Transformation.getViewMatrix(camera);
-        currentRay = calculateMouseRay(mouseInput);
+
+        //TODO: Expand this so some factor determined earlier in the process, aka choosing to make a FPS vs RTS
+        currentRay = calculateMouseRay(mouseInput, true);
     }
 
     @Override
