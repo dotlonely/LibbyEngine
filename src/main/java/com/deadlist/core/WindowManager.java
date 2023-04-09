@@ -118,6 +118,7 @@ public class WindowManager {
 
         GL.createCapabilities();
 
+
         //GL11.glClearColor(Consts.SKY_COLOR.x, Consts.SKY_COLOR.y, Consts.SKY_COLOR.z, Consts.SKY_COLOR.w);
         setClearColor(Consts.SKY_COLOR.x, Consts.SKY_COLOR.y, Consts.SKY_COLOR.z, Consts.SKY_COLOR.w);
         GL11.glEnable(GL11.GL_DEPTH_TEST);

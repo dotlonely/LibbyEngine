@@ -12,6 +12,7 @@ import com.deadlist.core.lighting.SpotLight;
 import com.deadlist.core.rendering.RenderManager;
 import com.deadlist.core.utils.Consts;
 import com.deadlist.core.utils.MousePicker;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -67,6 +68,7 @@ public class TestGame implements ILogic {
 
         GuiTexture catGui = new GuiTexture(loader.loadTexture("textures/cat.png"), loader, new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
         //sceneManager.addGui(catGui);
+
 
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("textures/medGreen.png"));
@@ -222,7 +224,7 @@ public class TestGame implements ILogic {
 
 
 
-//
+
         if(window.isKeyReleased(GLFW.GLFW_KEY_TAB)){
             if(!lockMouse) {
                 window.lockMouseToWindow(true);
@@ -320,7 +322,6 @@ public class TestGame implements ILogic {
 
     @Override
     public void update(MouseInput mouseInput) {
-
 
         picker.update(mouseInput);
         player.update(mouseInput);

@@ -101,12 +101,5 @@ public class MouseInput {
         return (float) currentPos.y;
     }
 
-    public float getPrevPosX(){
-        return (float) previousPos.x;
-    }
-
-    public float getPrevPosY(){
-        return (float) previousPos.y;
-    }
 
 }

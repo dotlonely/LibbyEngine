@@ -35,10 +35,12 @@ public class MousePicker implements ILogic {
 
         if(centerLock){
             normalizedCoords = new Vector2f(0f,0f);
-            normDevCoords = normalizedCoords;
         }
-        else
+        else{
             normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
+        }
+
+        normDevCoords = normalizedCoords;
 
         Vector4f clipCoords = new Vector4f(normalizedCoords.x, normalizedCoords.y, -1f, 1f);
         Vector4f eyeCoords = toEyeSpace(clipCoords);
@@ -63,7 +65,6 @@ public class MousePicker implements ILogic {
     private Vector2f getNormalizedDeviceCoords(float mouseX, float mouseY){
         float x = (2.0f * mouseX) / Launcher.getWindow().getWidth() - 1f;
         float y = (2.0f * mouseY) / Launcher.getWindow().getHeight() - 1f;
-        normDevCoords = new Vector2f(x, y);
         return new Vector2f(x, y);
     }
 
@@ -90,7 +91,7 @@ public class MousePicker implements ILogic {
         viewMatrix = Transformation.getViewMatrix(camera);
 
         //TODO: Expand this so some factor determined earlier in the process, aka choosing to make a FPS vs RTS
-        currentRay = calculateMouseRay(mouseInput, true);
+        currentRay = calculateMouseRay(mouseInput, false);
     }
 
     @Override
